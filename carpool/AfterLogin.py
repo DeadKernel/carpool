@@ -9,28 +9,31 @@ from carpool.db1 import connector
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/loggedin')
 @bp.route('/getstarted', methods=('GET', 'POST'))
-def register():
+def takeroute():
     if request.method == 'POST':
-        place1 = request.form['name']
-        place2 = request.form['password']
-        email = request.form['email']
-        phnumber = request.form['phno']
-        confpass = request.form['conpassword']
-        db,conn1 = connector()
-        count1=db.bookrides.count()
-        count1+=1
+        place1 = request.form['Start']
+        place2 = request.form['End']
+        date = request.form['Date']
         routeinfo = {
-            "_id":count1,
-            "name":username,
-            "mailid":email,
-            "password":generate_password_hash( password),
-            "phno":phnumber
+            "Start":place1,
+            "End":place2,
+            "Date":date,
+            "Time":date
         }
-        checkduplicate=db.users.find_one(
-            {"name":username}
-      )
+        db,conn1 = connector()
+        if request.form['Ride'] == 'Book Ride':
+            ride= db.bookride
+            ride.insert_one(routeinfo)
+            return ("okay")
 
-        error = None
+        if request.form['Ride'] == 'Offer Ride':
+            ride= db.offerride
+            ride.insert_one(routeinfo)
+            return ("okay")
+
+
+
+        """error = None
         if not username:
             return('1')
         elif not password:
@@ -48,6 +51,6 @@ def register():
             user.insert_one(userinfo)
             return ("okay")
             print("Toshal")
-        flash(error)
+        flash(error)"""
 
-    return render_template('AfterLogin/begin.html')
+    return render_template('AfterLogin/Begin.html')

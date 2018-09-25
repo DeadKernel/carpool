@@ -22,6 +22,9 @@ def create_app(test_config=None):
     from . import auth
     app.register_blueprint(auth.bp)
     # a simple page that says hello
+    from . import AfterLogin
+    app.register_blueprint(AfterLogin.bp)
+
     @app.route('/hello')
     def hello():
         try:
