@@ -140,24 +140,26 @@ input[type=submit]:hover {
 <div class="container">
   <div class="row">
     <div class="column">
-      <form action="/action_page.php " name="submit" method="POST" >
+      <form action="/action_page.php " name="submit" onsubmit="return validateForm()" method="POST" >
         <input id="autocomplete"  type="text"  name="Start" placeholder="Start Location">
         <input id="autocomplete1"  type="text" name="End" placeholder="End location">
 
-         <div class="input-group date" id="datetimepicker2">
+         <div class="input-group date" id="datetimepicker">
                <input type='text' class="form-control" name="Date" placeholder="Date & Time">
                   <span class="input-group-addon" style="background-color:black; border: 1px solid black">
                     <span class="glyphicon glyphicon-calendar" style="color:white"></span>
                    </span>
              </div>
              <script type="text/javascript">
-                   $(function () {
-                           $('#datetimepicker2').datetimepicker();
-                   });
+              $(function () {
+     $('#datetimepicker').datetimepicker({  
+         minDate:new Date()
+      });
+ });
              </script>
              <br><br>
-			<input type="submit" value="Book Ride" name="Book Ride">
-			<input type="submit" value="Offer Ride" name="Offer Ride">
+			<input type="submit" value="Book Ride" name="Ride">
+			<input type="submit" value="Offer Ride" name="Ride">
       </form>
     </div>
      <div class="column">
@@ -248,6 +250,36 @@ input[type=submit]:hover {
       };
 
     </script>
+
+<script type="text/javascript">
+function validateForm()
+{
+    var x = document.forms["submit"]["Start"].value;
+    var y = document.forms["submit"]["End"].value;
+    var z = document.forms["submit"]["Date"].value;
+
+    if (x == "")
+    {
+        alert("Start position must be filled out");
+  x.focus();
+        return false;
+    }
+    if (y == "")
+    {
+        alert("End position must be filled out");
+   y.focus();
+        return false;
+    }
+    if (z == "")
+    {
+        alert("Date must be filled out");
+   z.focus();
+        return false;
+    }
+
+}
+
+</script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3o0mnFLqQVEtt-tePb0uZqiju1EZZ3xw&libraries=places&callback=initMap"
         async defer></script>
 </body>
