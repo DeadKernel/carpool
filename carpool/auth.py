@@ -24,7 +24,7 @@ def register():
             "_id":count1,
             "name":username,
             "mailid":email,
-            "password":password,
+            "password":generate_password_hash( password),
             "phno":phnumber
         }
         checkduplicate=db.users.find_one(
