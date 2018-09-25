@@ -15,7 +15,7 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/js/bootstrap-datetimepicker.min.js">
   </script>
-  	
+
 <style>
 	header{
 		background-color: #0D4F8B;
@@ -140,7 +140,7 @@ input[type=submit]:hover {
 <div class="container">
   <div class="row">
     <div class="column">
-      <form action="/action_page.php " name="submit" method="POST" >
+      <form name="submit" method="POST" >
         <input id="autocomplete"  type="text"  name="Start" placeholder="Start Location">
         <input id="autocomplete1"  type="text" name="End" placeholder="End location">
 
@@ -156,8 +156,8 @@ input[type=submit]:hover {
                    });
              </script>
              <br><br>
-			<input type="submit" value="Book Ride" name="Book Ride">
-			<input type="submit" value="Offer Ride" name="Offer Ride">
+			<input type="submit"  value="Book Ride" name="Ride">
+			<input type="submit"  value="Offer Ride" name="Ride">
       </form>
     </div>
      <div class="column">
@@ -200,14 +200,14 @@ input[type=submit]:hover {
         var destinationAutocomplete = new google.maps.places.Autocomplete(
             destinationInput, {placeIdOnly: true});
 
-       
+
         this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
         this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
       }
 
       // Sets a listener on a radio button to change the filter type on Places
       // Autocomplete.
-     
+
 
       AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
         var me = this;
