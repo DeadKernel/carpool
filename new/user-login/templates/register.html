@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<style>
+	header{
+		background-color: #333;
+		text-align: center;
+		padding: 20px;
+		color: 	white;
+	}
+	input[type=text],select, textarea
+	{
+		width: 35vw;
+		padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	}
+	input[type=password],select, textarea
+	{
+	width: 35vw;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	}
+	input[type=submit] {
+		background-color: #333;
+		color: white;
+		padding: 1vw 8vw;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	input[type=reset] {
+		background-color: #333;
+		color: white;
+		padding: 1vw 8vw;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+	.bg
+	{
+		background-image: url("hi.jpg");
+		height:100%;
+		background-position:center;
+		background-repeat:no-repeat;
+		background-size:cover;
+	}
+	  .navbar {
+      font-family: Montserrat, sans-serif;
+      margin-bottom: 0;
+      background-color: #2d2d30;
+      border: 0;
+      font-size: 11px !important;
+      letter-spacing: 4px;
+      opacity: 0.9;
+  }
+  .navbar li a, .navbar .navbar-brand { 
+      color: #d5d5d5 !important;
+  }
+  .navbar-nav li a:hover {
+      color: #fff !important;
+  }
+  .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+  }
+	form
+	{
+		margin-top:20vh;
+ 		height:90vh;
+		width: 630px;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		background-color:white;
+ 		opacity:0.8;
+	}
+	.fontAwesome{
+		font-family: FontAwesome;
+	}
+
+</style>
+
+<title>Sign-Up</title>
+</head>
+<body class="bg" data-spy="scroll" data-target=".navbar" data-offset="50">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="extra.html#myPage">Carpooler's Galore</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="extra.html">HOME</a></li>
+        <li><a href="extra.html#band">ABOUT</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="{{ url_for('register') }}">SIGN-UP</a></li>
+        <li><a href="{{ url_for('index') }}">LOGIN</a></li>
+    </div>
+  </div>
+</nav>
+
+<center style="margin:2.2vw 3vh"> <form name="login" onsubmit="return validateForm()" method="POST" action="{{ url_for('register') }}">
+	<header> SIGN-UP FORM </header>
+<br>
+<table id="user" style= style="font-size:1.5vw">
+<tr> <td><input type="text" class="glyphicon" name="username" placeholder="&#xe008; Username"><br><br></td></tr>
+<tr> <td> <input type="text" class="glyphicon" name="email" placeholder="&#x2709; Email Address"><br><br></td></tr>
+<tr> <td> <input type="password" class="glyphicon" name="password" placeholder="&#xe033; Password"><br><br></td></tr>
+<tr> <td> <input type="password" class="glyphicon" name ="conpassword" placeholder="&#xe033; Confirm Password"><br><br></td></tr>
+<tr> <td> <input type="text" class="glyphicon" name="phno" placeholder="&#xe182; Phone Number"><br><br></td></tr>
+</table>
+
+
+<label for="own-car">Do you own a car?</label>
+<input id="own-car" name="own-car" type="checkbox" onclick="carOwn()">
+<br>
+<div id="conditional_part" style="display:none">
+<header> CAR DETAILS </header>
+<br>
+<table id="car" style= style="font-size:1.5vw">
+<tr> <td> <input type="text" class="glyphicon" name="plate" placeholder="Vehicle Plate Number"><br><br></td></tr>
+<tr> <td> <input type="text" class="glyphicon" name="model" placeholder="Car Model"><br><br></td></tr>
+<tr> <td> <input type="text" class="glyphicon" name="license" placeholder="License Number"><br><br></td></tr>
+</table>
+</div>  
+<br>
+<input type="submit" value="Submit" name="Submit">
+<input type="reset" value="Reset" name="Reset">
+<br><br>
+<p>Already have an account?<a href= "{{ url_for('index') }}">Log in</a></p>
+</br>
+
+</form>
+	</center>
+
+</body>
+
+<script type="text/javascript">
+function validateForm()
+{
+    var x = document.forms["login"]["username"].value;
+    var y = document.forms["login"]["email"].value;
+    var atpos = y.indexOf("@");
+    var dotpos = y.lastIndexOf(".");
+    var password = document.forms["login"]["password"].value;
+
+    if (x == "")
+    {
+        alert("Name must be filled out");
+	x.focus();
+        return false;
+    }
+
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=y.length)
+    {
+        alert("Not a valid e-mail address");
+	y.focus();
+        return false;
+     }
+
+      if(password == "")
+    {
+	alert("Password must be filled out");
+	password.focus();
+	return false;
+    }
+}
+
+</script>
+<script>
+function carOwn() {
+	var x = document.getElementById("conditional_part");
+	if (x.style.display ==="none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
+}
+</script>
+</html>
