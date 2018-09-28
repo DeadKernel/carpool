@@ -9,7 +9,7 @@ from carpool.db1 import connector
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/loggedin')
 @bp.route('/getstarted', methods=('GET', 'POST'))
-def takeroute():
+def takeRoute():
     if request.method == 'POST':
         place1 = request.form['Start']
         place2 = request.form['End']
@@ -52,5 +52,7 @@ def takeroute():
             return ("okay")
             print("Toshal")
         flash(error)"""
-
     return render_template('AfterLogin/Begin.html')
+@bp.route('/offride', methods=('GET', 'POST'))
+def offRide():
+    return render_template('AfterLogin/OfferRide.html')
