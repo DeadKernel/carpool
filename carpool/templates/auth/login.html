@@ -44,7 +44,7 @@
 
 	.bg
 	{
-		background-image: url("hi.jpg");
+		background-image: url("../static/hi.jpg");
 		height:100%;
 		background-position:center;
 		background-repeat:no-repeat;
@@ -105,8 +105,8 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="extra.html">HOME</a></li>
-        <li><a href="extra.html#band">ABOUT</a></li>
+        <li><a href="home.html">HOME</a></li>
+        <li><a href="home.html#band">ABOUT</a></li>
         <li><a href="contact.html">CONTACT</a></li>
         <li><a href="{{ url_for('auth.register') }}">SIGN-UP</a></li>
         <li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>

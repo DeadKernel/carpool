@@ -28,7 +28,7 @@ def login():
             password=request.form['password']
             if check_password_hash(login_user['password'], password):
                 session['username'] = request.form['username']
-                return redirect(url_for('auth.index'))
+                return redirect(url_for('index'))
             return 'Invalid username/password combination'
 
     return render_template('auth/login.html')
