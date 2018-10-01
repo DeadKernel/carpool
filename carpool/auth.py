@@ -15,7 +15,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/')
 def index():
     if 'username' in session:
-        return 'You are logged in as ' + session['username']
+        return render_template('AfterLogin/Begin.html')
     return render_template('auth/login.html')
 
 @bp.route('/login', methods=['GET','POST'])
@@ -133,7 +133,8 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.auth'))
