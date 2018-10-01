@@ -93,10 +93,11 @@ def register():
 
     return render_template('auth/signup.html')
 
+
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.user is None:
+        if session.get('username') is None:
             return redirect(url_for('auth.login'))
 
         return view(**kwargs)
