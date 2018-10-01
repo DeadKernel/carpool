@@ -107,8 +107,7 @@
       <ul class="nav navbar-nav navbar-right">
 				<li><a href="{{url_for('auth.auth')}}">HOME</a></li>
 				<li><a href="{{url_for('auth.auth')}}#band">ABOUT</a></li>
-				<li><a href="{{ url_for('auth.login') }}">BEGIN</a></li>
-				<li><a href="../static/contact.html">CONTACT</a></li>
+				<li><a href="{{url_for('auth.contact')}}">CONTACT</a></li>
 				<li><a href="{{ url_for('auth.register') }}">SIGN-UP</a></li>
 				<li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
     </div>
@@ -120,7 +119,6 @@
 	<header> LOG IN FORM </header>
 <br>
 <table id="user" style= style="font-size:1.5vw">
-<tr> <td> <input type="text" class="glyphicon" name="username" placeholder="&#xe008; Username"><br><br></td></tr>
 <tr> <td> <input type="text" class="glyphicon" name="email" placeholder="&#x2709; Email Address"><br><br></td></tr>
 <tr> <td> <input type="password" class="glyphicon" name="password" placeholder="&#xe033; Password"><br><br></td></tr>
 </table>
@@ -135,17 +133,12 @@
 <script type="text/javascript">
 function validateForm()
 {
-    var x = document.forms["login"]["username"].value;
+
     var y = document.forms["login"]["email"].value;
     var atpos = y.indexOf("@");
     var dotpos = y.lastIndexOf(".");
     var password = document.forms["login"]["password"].value;
-    if (x == "")
-    {
-        alert("Name must be filled out");
-	x.focus();
-        return false;
-    }
+
     if (atpos<1 || dotpos<atpos+2 || dotpos+2>=y.length)
     {
         alert("Not a valid e-mail address");

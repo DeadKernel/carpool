@@ -102,7 +102,7 @@ input[type=submit]:hover{
 
 .bg
   {
-    background-image: url("wowow.gif");
+    background-image: url("../static/wowow.gif");
     height:100%;
     background-position:center;
     background-repeat:no-repeat;
@@ -164,9 +164,8 @@ input[type=submit]:hover{
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="">HOME</a></li>
-        <li><a href="#band">ABOUT</a></li>
-        <li><a href="{{ url_for('auth.auth') }}">BEGIN</a></li>
+        <li><a href="{{ url_for('auth.auth') }}">HOME</a></li>
+        <li><a href="{{ url_for('auth.auth') }}#band">ABOUT</a></li>
         <li><a href="{{ url_for('auth.contact') }}">CONTACT</a></li>
         <li><a href="{{ url_for('auth.register') }}">SIGN-UP</a></li>
         <li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
