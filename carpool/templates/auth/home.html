@@ -212,10 +212,10 @@
 <div class="container" style="padding:2vh">
   <div class="row">
   <div class="col-xs-6">
-  <button type="button" onclick="location.href= {{ url_for('auth.login') }}" class="btn btn-elegant waves-effect waves-light" style="width:42vw">LOGIN</button>
+  <button type="button" onclick="location.href= '{{ url_for('auth.login') }}';" class="btn btn-elegant waves-effect waves-light" style="width:42vw">LOGIN</button>
   </div>
   <div class="col-xs-6">
-  <button type="button" onclick="location.href= 'signup.html" class="btn btn-elegant waves-effect waves-light" style="width:42vw">SIGN UP</button>
+  <button type="button" onclick="location.href= '{{url_for('auth.register')}}';" class="btn btn-elegant waves-effect waves-light" style="width:42vw">SIGN UP</button>
   </div>
 </div>
 </div>
