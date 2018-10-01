@@ -56,7 +56,7 @@ def takeRoute():
     return render_template('AfterLogin/Begin.html')
 @bp.route('/offride', methods=('GET', 'POST'))
 def offRide():
-    return render_template('AfterLogin/OfferRide.html')
+    return render_template('AfterLogin/offerRide.html')
 @bp.route('/bookride', methods=('GET', 'POST'))
 def bookRide():
     return render_template('AfterLogin/OfferRide.html')
