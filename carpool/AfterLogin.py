@@ -6,9 +6,11 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from carpool.db1 import connector
+from carpool.auth import login_required
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/loggedin')
 @bp.route('/getstarted', methods=('GET', 'POST'))
+@login_required
 def takeRoute():
     if request.method == 'POST':
         place1 = request.form['Start']
@@ -55,8 +57,10 @@ def takeRoute():
         flash(error)"""
     return render_template('AfterLogin/Begin.html')
 @bp.route('/offride', methods=('GET', 'POST'))
+@login_required
 def offRide():
     return render_template('AfterLogin/offerRide.html')
 @bp.route('/bookride', methods=('GET', 'POST'))
+@login_required
 def bookRide():
     return render_template('AfterLogin/OfferRide.html')
