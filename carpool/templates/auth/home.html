@@ -157,10 +157,9 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myPage">HOME</a></li>
-        <li><a href="#band">ABOUT</a></li>
-        <li><a href="{{ url_for('auth.login') }}">BEGIN</a></li>
-        <li><a href="{{ url_for('auth.login') }}">CONTACT</a></li>
+        <li><a href="{{url_for('auth.auth')}}">HOME</a></li>
+        <li><a href="{{url_for('auth.auth')}}#band">ABOUT</a></li>
+        <li><a href="{{url_for('auth.contact')}}">CONTACT</a></li>
         <li><a href="{{ url_for('auth.register') }}">SIGN-UP</a></li>
         <li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
     </div>
@@ -216,7 +215,7 @@
   <button type="button" onclick="location.href= {{ url_for('auth.login') }}" class="btn btn-elegant waves-effect waves-light" style="width:42vw">LOGIN</button>
   </div>
   <div class="col-xs-6">
-  <button type="button" onclick="location.href= 'signup.html'" class="btn btn-elegant waves-effect waves-light" style="width:42vw">SIGN UP</button>
+  <button type="button" onclick="location.href= 'signup.html" class="btn btn-elegant waves-effect waves-light" style="width:42vw">SIGN UP</button>
   </div>
 </div>
 </div>
