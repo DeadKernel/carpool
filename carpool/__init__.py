@@ -3,6 +3,8 @@ import os
 from flask import (
             Flask,session)
 from carpool.db1 import connector
+from carpool.auth import login_required
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -27,10 +29,11 @@ def create_app(test_config=None):
     app.register_blueprint(AfterLogin.bp)
 
     @app.route('/hello')
+    @login_required
     def hello():
         try:
             c, conn = connector()
-            print(session['username'])
+            #print(session['username'])
             return("okay")
         except Exception as e:
             return(str(e))
