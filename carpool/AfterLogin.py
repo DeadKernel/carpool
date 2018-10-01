@@ -29,6 +29,7 @@ def takeRoute():
         if request.form['Ride'] == 'Offer Ride':
             ride= db.offerride
             ride.insert_one(routeinfo)
+            #print(session['username'])
             return ("okay")
 
 
@@ -55,4 +56,7 @@ def takeRoute():
     return render_template('AfterLogin/Begin.html')
 @bp.route('/offride', methods=('GET', 'POST'))
 def offRide():
+    return render_template('AfterLogin/OfferRide.html')
+@bp.route('/bookride', methods=('GET', 'POST'))
+def bookRide():
     return render_template('AfterLogin/OfferRide.html')

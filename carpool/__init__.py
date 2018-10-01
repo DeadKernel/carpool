@@ -1,6 +1,7 @@
 import os
 
-from flask import Flask
+from flask import (
+            Flask,session)
 from carpool.db1 import connector
 def create_app(test_config=None):
     # create and configure the app
@@ -29,6 +30,7 @@ def create_app(test_config=None):
     def hello():
         try:
             c, conn = connector()
+            print(session['username'])
             return("okay")
         except Exception as e:
             return(str(e))

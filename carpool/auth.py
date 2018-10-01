@@ -28,7 +28,7 @@ def login():
             password=request.form['password']
             if check_password_hash(login_user['password'], password):
                 session['username'] = request.form['username']
-                return redirect(url_for('index'))
+                return redirect(url_for('auth.index'))
             return 'Invalid username/password combination'
 
     return render_template('auth/login.html')
@@ -121,3 +121,13 @@ def register():
         flash(error)
 
     return render_template('auth/signup.html')
+
+def login_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+
+        return view(**kwargs)
+
+    return wrapped_view
