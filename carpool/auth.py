@@ -23,11 +23,12 @@ def login():
     if request.method == 'POST':
         db,conn1 = connector()
         users = db.users
-        login_user = users.find_one({'name' : request.form['username']})
+
+        login_user = users.find_one({'mailid' : request.form['email']})
         if login_user:
             password=request.form['password']
             if check_password_hash(login_user['password'], password):
-                session['username'] = request.form['username']
+                session['username'] = request.form['email']
                 return redirect(url_for('auth.index'))
             return 'Invalid username/password combination'
 
@@ -98,7 +99,7 @@ def register():
             ]
         }
         checkduplicate=db.users.find_one(
-            {"name":username})
+            {"mailid":email})
 
         error = None
         if not username:
