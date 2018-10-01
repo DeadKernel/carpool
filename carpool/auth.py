@@ -35,7 +35,36 @@ def login():
 @bp.route('/home')
 def auth():
     return render_template('auth/home.html')
+@bp.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method=='POST':
+        first_name=request.form['firstname']
+        last_name=request.form['lastname']
+        city=request.form['city']
+        comment=request.form['subject']
+        db,conn1 = connector()
+        contact={
+        "First Name": first_name,
+        "Second Name": last_name,
+        "City":city,
+        "Comment":comment
+        }
+        error=None
+        if not first_name:
+            return('Enter First Name')
+        elif not last_name:
+            return('Enter Last Name')
+        elif not city:
+            return('Enter the city name')
+        elif not comment:
+            return('Enter the Comments')
 
+        if error is None:
+            con= db.contact
+            con.insert_one(contact)
+            return ("Okay")
+        flash(error)
+    return render_template('auth/contact.html')
 @bp.route('/signup', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':

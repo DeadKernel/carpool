@@ -166,8 +166,8 @@ input[type=submit]:hover{
       <ul class="nav navbar-nav navbar-right">
         <li><a href="">HOME</a></li>
         <li><a href="#band">ABOUT</a></li>
-        <li><a href="{{ url_for('auth.offRide') }}">BEGIN</a></li>
-        <li><a href="../static/contact.html">CONTACT</a></li>
+        <li><a href="{{ url_for('auth.auth') }}">BEGIN</a></li>
+        <li><a href="{{ url_for('auth.contact') }}">CONTACT</a></li>
         <li><a href="{{ url_for('auth.register') }}">SIGN-UP</a></li>
         <li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
     </div>
@@ -183,20 +183,15 @@ input[type=submit]:hover{
 </div>
 <center>
 	<div class="container">
-  <form action="/action_page.php">
+  <form method="POST">
     <label for="fname"><b><font color="black">First Name</font></b></label>
     <input type="text" id="fname" name="firstname" placeholder=" Name">
 
     <label for="lname"><b> <font color="black">Last Name</font></b></label>
     <input type="text" id="lname" name="lastname" placeholder=" Last name">
 
-    <label for="country"><b><font color="black">City</font></b></label>
-    <select id="country" name="country">
-      <option value="australia">Pune</option>
-      <option value="canada">Mumbai</option>
-      <option value="usa">Aurangabad</option>
-        <option value="usa">Nashik</option>
-    </select>
+    <input type="text" id="city" name="city" placeholder="City">
+
 
     <label for="subject"><b><font color="black">Comments</font></b></label>
     <textarea id="subject" name="subject" placeholder="Write to us and we'll get back to you within 24 hours!" style="height:120px"></textarea>
