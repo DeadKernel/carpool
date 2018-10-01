@@ -48,7 +48,6 @@ def register():
         licence_number=request.form['license']
         car_model=request.form['model']
 
-
         if not request.form.get('owncar'):
             car_plate=None
             licence_number=None

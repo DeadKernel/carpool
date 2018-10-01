@@ -101,15 +101,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="extra.html#myPage">Carpooler's Galore</a>
+      <a class="navbar-brand" href="{{url_for('auth.auth')}}">Carpooler's Galore</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="home.html">HOME</a></li>
-        <li><a href="home.html#band">ABOUT</a></li>
-        <li><a href="contact.html">CONTACT</a></li>
-        <li><a href="{{ url_for('auth.login') }}">SIGN-UP</a></li>
-        <li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
+				<li><a href="{{url_for('auth.auth')}}">HOME</a></li>
+				<li><a href="{{url_for('auth.auth')}}#band">ABOUT</a></li>
+				<li><a href="{{ url_for('auth.login') }}">BEGIN</a></li>
+				<li><a href="../static/contact.html">CONTACT</a></li>
+				<li><a href="{{ url_for('auth.register') }}">SIGN-UP</a></li>
+				<li><a href="{{ url_for('auth.login') }}">LOGIN</a></li>
     </div>
   </div>
 </nav>
