@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html >
+
 <head>
-  <meta charset="UTF-8">
-  <title>Welcome</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+  <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css"> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<style>
 
-  <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
-
-      <style>
-      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-      @import url('http://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
-@import url('//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css');
 body {
   color: #ffffff;
   background: #ffffff;
@@ -20,6 +24,35 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
+header{
+  background-color: #0D4F8B;
+  text-align: center;
+  padding: 20px;
+  color: 	white;
+}
+.navbar {
+    font-family: Montserrat, sans-serif;
+
+    margin-bottom:0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 11px !important;
+    letter-spacing: 4px;
+    opacity: 0.9;
+}
+.navbar li a, .navbar .navbar-brand {
+    color: #d5d5d5 !important;
+}
+.navbar-nav li a:hover {
+    color: #fff !important;
+}
+.navbar-nav li.active a {
+    color: #fff !important;
+    background-color: #29292c !important;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
 .sidebar-toggle {
   margin-left: -240px;
 }
@@ -27,7 +60,7 @@ body {
   width: 240px;
   height: 100%;
   background: #293949;
-  position: absolute;
+  position: fixed;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
@@ -37,9 +70,234 @@ body {
 }
 .sidebar #leftside-navigation ul,
 .sidebar #leftside-navigation ul ul {
-  margin: -2px 0 0;
+  margin: -4px 0 0;
   padding: 0;
 }
+#w {
+  display: block;
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 45px;
+}
+
+
+article, aside, details, figcaption, figure, footer, hgroup, menu, nav, section { display: block; }
+ol, ul { list-style: none; }
+
+input, textarea {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  outline: none;
+}
+
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+strong { font-weight: bold; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+img { border: 0; max-width: 100%; }
+
+
+
+/** typography **/
+h1 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 2.5em;
+  line-height: 1.5em;
+  letter-spacing: -0.05em;
+  margin-bottom: 20px;
+  padding: .1em 0;
+  color: #444;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+}
+h1:before,
+h1:after {
+  content: "";
+  position: relative;
+  display: inline-block;
+  width: 50%;
+  height: 1px;
+  vertical-align: middle;
+  background: #f0f0f0;
+}
+h1:before {
+  left: -.5em;
+  margin: 0 0 0 -50%;
+}
+h1:after {
+  left: .5em;
+  margin: 0 -50% 0 0;
+}
+h1 > span {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+
+h2 {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 2.1em;
+  line-height: 1.4em;
+  letter-spacing: normal;
+  margin-bottom: 20px;
+  padding: .1em 0;
+  color: #444;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+}
+
+p {
+  display: block;
+  font-size: 1.4em;
+  line-height: 1.55em;
+  margin-bottom: 22px;
+  color: #555;
+}
+
+a { color: #5a9352; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.center { display: block; text-align: center; }
+
+/** page structure **/
+#w {
+  display: block;
+  width: 800px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 45px;
+}
+
+#content {
+  display: block;
+  width: 100%;
+  background: #fff;
+  padding: 25px 20px;
+  padding-bottom: 35px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+#userphoto {
+  display: block;
+  float: right;
+  margin-left: 10px;
+  margin-bottom: 8px;
+}
+#userphoto img {
+  display: block;
+  padding: 2px;
+  background: #fff;
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+
+
+/** profile nav links **/
+#profiletabs {
+  display: block;
+  margin-bottom: 4px;
+  height: 50px;
+}
+.navbar {
+      font-family: Montserrat, sans-serif;
+      margin-bottom: 0;
+      background-color: #2d2d30;
+
+      border: 0;
+      font-size: 11px !important;
+      letter-spacing: 4px;
+      opacity: 0.9;
+}
+  .navbar li a, .navbar .navbar-brand {
+      color: #d5d5d5 !important;
+}
+ .navbar-nav li a:hover {
+      color: #fff !important;
+}
+  .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+  }
+  .navbar-default .navbar-toggle {
+      border-color: transparent;
+  }
+#profiletabs ul { list-style: none; display: block; width: 70%; height: 50px; }
+#profiletabls ul li { float: left; }
+#profiletabs ul li a {
+  display: block;
+  float: left;
+  padding: 8px 11px;
+  font-size: 1.2em;
+  font-weight: bold;
+  background: #eae8db;
+  color: #666;
+  margin-right: 7px;
+  border: 1px solid #fff;
+  -webkit-border-radius: 5px;
+  -webkit-border-bottom-left-radius: 0;
+  -moz-border-radius: 5px;
+  -moz-border-radius-bottomleft: 0;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+}
+#profiletabs ul li a:hover {
+  text-decoration: none;
+  background: #dad7c2;
+  color: #565656;
+}
+
+#profiletabs ul li a.sel {
+  background: #fff;
+  border-color: #d1cdb5;
+}
+
+
+/** profile content sections **/
+.hidden {
+  display: none;
+}
+
+br { line-height: 25px; }
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 10px;
+}
+th {
+    font-size:15px;
+    text-align: left;
+}
+
+.heading{
+  font-weight: bold;
+}
+
+
+#friendslist li a img { float: left; margin-right: 5px; }
+
+/** clearfix **/
+.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
+.clearfix { display: inline-block; }
+
+html[xmlns] .clearfix { display: block; }
+* html .clearfix { height: 1%; }
 .sidebar #leftside-navigation ul li {
   list-style-type: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -74,7 +332,7 @@ body {
 }
 .sidebar #leftside-navigation ul li a i .fa-angle-left,
 .sidebar #leftside-navigation ul li a i .fa-angle-right {
-  padding-top: 3px;
+  padding-top: 20px;
 }
 .sidebar #leftside-navigation ul ul {
   display: none;
@@ -99,7 +357,29 @@ body {
 
 </head>
 
-<body>
+<body  data-spy="scroll" data-target=".navbar" data-offset="50">
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{url_for('auth.auth')}}">Carpooler's Galore</a>
+      </div>
+     	<div class="collapse navbar-collapse" id="myNavbar">
+       <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{url_for('auth.auth')}}">HOME</a></li>
+          <li><a href="{{url_for('auth.auth')}}#band">ABOUT</a></li>
+          <li><a href="{{url_for('auth.contact')}}">CONTACT</a></li>
+          <li><a href="{{url_for('auth.logout')}}">LOG-OUT</a></li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+ <br><br>
   <aside class="sidebar">
   <div id="leftside-navigation" class="nano">
     <ul class="nano-content">
@@ -108,108 +388,58 @@ body {
       </li>
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-cogs"></i><span>UI Elements</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
 
-          <li><a href="ui-alerts-notifications.html">Alerts &amp; Notifications</a>
-          </li>
-          <li><a href="ui-panels.html">Panels</a>
-          </li>
-          <li><a href="ui-buttons.html">Buttons</a>
-          </li>
-          <li><a href="ui-slider-progress.html">Sliders &amp; Progress</a>
-          </li>
-          <li><a href="ui-modals-popups.html">Modals &amp; Popups</a>
-          </li>
-          <li><a href="ui-icons.html">Icons</a>
-          </li>
-          <li><a href="ui-grid.html">Grid</a>
-          </li>
-          <li><a href="ui-tabs-accordions.html">Tabs &amp; Accordions</a>
-          </li>
-          <li><a href="ui-nestable-list.html">Nestable Lists</a>
-          </li>
-        </ul>-->
       </li>
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa-table"></i><span>Tables</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
-          <li><a href="tables-basic.html">Basic Tables</a>
-          </li>
 
-          <li><a href="tables-data.html">Data Tables</a>
-          </li>
-        </ul>-->
       </li>
       <li class="sub-menu">
         <a href="javascript:void(0);"><i class="fa fa fa-tasks"></i><span>Forms</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
-          <li><a href="forms-components.html">Components</a>
-          </li>
-          <li><a href="forms-validation.html">Validation</a>
-          </li>
-          <li><a href="forms-mask.html">Mask</a>
-          </li>
-          <li><a href="forms-wizard.html">Wizard</a>
-          </li>
-          <li><a href="forms-multiple-file.html">Multiple File Upload</a>
-          </li>
-          <li><a href="forms-wysiwyg.html">WYSIWYG Editor</a>
-          </li>
-        </ul>-->
+
       </li>
-      <li class="sub-menu active">
-        <a href="javascript:void(0);"><i class="fa fa-envelope"></i><span>Mail</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
-          <li class="active"><a href="mail-inbox.html">Inbox</a>
-          </li>
-          <li><a href="mail-compose.html">Compose Mail</a>
-          </li>
-        </ul>-->
-      </li>
-      <li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-bar-chart-o"></i><span>Charts</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
-          <li><a href="charts-chartjs.html">Chartjs</a>
-          </li>
-          <li><a href="charts-morris.html">Morris</a>
-          </li>
-          <li><a href="charts-c3.html">C3 Charts</a></li>
-        </ul>-->
-      </li>
-      <li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-map-marker"></i><span>Maps</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
-          <li><a href="map-google.html">Google Map</a>
-          </li>
-          <li><a href="map-vector.html">Vector Map</a>
-          </li>
-        </ul>-->
-      </li>
-      <li class="sub-menu">
-        <a href="typography.html"><i class="fa fa-text-height"></i><span>Typography</span></a>
-      </li>
-      <li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-file"></i><span>Pages</span><i class="arrow fa fa-angle-right pull-right"></i></a>
-        <!--<ul>
-          <li><a href="pages-blank.html">Blank Page</a>
-          </li>
-          <li><a href="pages-login.html">Login</a>
-          </li>
-          <li><a href="pages-sign-up.html">Sign Up</a>
-          </li>
-          <li><a href="pages-calendar.html">Calendar</a>
-          </li>
-          <li><a href="pages-timeline.html">Timeline</a>
-          </li>
-          <li><a href="pages-404.html">404</a>
-          </li>
-          <li><a href="pages-500.html">500</a>
-          </li>
-        </ul>
-      </li>
-    </ul>-->
-  </div>
+        </div>
 </aside>
+   <div id="w">
+    <div id="content" class="clearfix">
+      <div id="userphoto"><img src="../static/user.jpeg" alt="default avatar"></div>
+      <h1> Profile</h1>
+
+      <section id="bio">
+        <p>Name: <br> Email: <br> Phone Number: <br> Car Number: <br> License No.: <br>
+        </p>
+        <p>{{user.name}}</p>
+     <p>{{user.email}}</p>
+      </section>
+
+      <section id="transaction" class="hidden">
+        <table style="width:100%">
+  <tr class="heading">
+    <th> Drivers Name</th>
+    <th> Start Destination </th>
+    <th> End Destination </th>
+    <th> Start Time </th>
+    <th> End Time </th>
+    <th> Fare </th>
+  </tr>
+
+  <tr>
+    <th> Rhea </th>
+    <th> Lonavala </th>
+    <th> KLN </th>
+    <th> 12:00 PM </th>
+    <th> 1:00 PM </th>
+    <th> Rs. 1900 </th>
+  </tr>
+
+</table>
+      </section>
+
+      <center>
+      <button type="submit" class="btn btn-default" style="padding: 13px; border-radius:20px; font-size:17px; font-family:georgia; background-color:white;border:1px solid black; color:black "> Start your ride! </button>
+    </center>
+    </div><!-- @end #content -->
+  </div><!-- @end #w -->
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
