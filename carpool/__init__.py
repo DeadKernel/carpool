@@ -28,6 +28,9 @@ def create_app(test_config=None):
     from . import AfterLogin
     app.register_blueprint(AfterLogin.bp)
 
+    from . import transaction
+    app.register_blueprint(transaction.bp)
+
     @app.route('/hello')
     @login_required
     def hello():

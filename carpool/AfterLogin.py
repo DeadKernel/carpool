@@ -4,9 +4,9 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 from werkzeug.security import check_password_hash, generate_password_hash
-from carpool.auth import *
 from carpool.db1 import connector
-from carpool.auth import login_required
+from carpool.auth import login_required,session_name
+from carpool.transaction import *
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/auth')
 
@@ -47,13 +47,12 @@ def takeRoute():
             "Time":date,
             "Distance_flex":None,
             "Time_flex":None,
-            "No_of_persons":None
+            "No_of_persons":None,
+            "waypoints":[]
         }
         db,conn1 = connector()
         if request.form['Ride'] == 'Book Ride':
-            ride= db.bookride
-            ride.insert_one(routeinfo)
-            return ("okay")
+            showRides(routeinfo)
 
         if request.form['Ride'] == 'Offer Ride':
             ride= db.offerride

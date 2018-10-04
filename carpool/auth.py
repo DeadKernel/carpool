@@ -133,11 +133,11 @@ def session_name():
 
 def login_required(view):
     @functools.wraps(view)
-    def wrapped_view(**kwargs):
+    def wrapped_view(*args,**kwargs):
         if session.get('username') is None:
             return redirect(url_for('auth.login'))
 
-        return view(**kwargs)
+        return view(*args,**kwargs)
 
     return wrapped_view
 
