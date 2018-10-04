@@ -61,3 +61,10 @@ def takeRoute():
             return redirect(url_for('insidelogin.update'))
 
     return render_template('AfterLogin/Begin.html')
+
+
+@bp.route('/result',methods = ['POST', 'GET'])
+def result():
+   if request.method == 'POST':
+      result = request.form
+      return render_template("AfterLogin/base.html",result = result)
