@@ -21,8 +21,10 @@ def showRides(passroute):
     base = 'https://maps.googleapis.com/maps/api/directions/json?'
     api_key ='AIzaSyDsDBCYF8CBpzPI4kE7PxqtuQBoLVv2Crc'
     for document in rides.find({"End":destinationPassenger}):
-                if document['Time'] > passroute['Time']:
-                    continue
+                a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
+                b = dt.strptime(passroute['Time'], "%m/%d/%Y  %I:%M %p")
+                if a>b:
+                        continue
                 originDriver = document['Start']
                 destinationDriver =document['End']
                 originalWaypoints=document['waypoints']
