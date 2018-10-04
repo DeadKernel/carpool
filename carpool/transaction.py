@@ -27,8 +27,8 @@ def showRides(passroute):
                 if destinationDriver != destinationPassenger:
                     continue
                 else:
-                    waypoints = []
-
+                    originalWaypoints=document['waypoints']
+                    addedwaypoints =originalwaypoints+'|'+originPassenger
                     requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'key':api_key})
                     requestTotal = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originPassenger, 'key':api_key})
                     responseOne= urllib.request.urlopen(requestDriver).read()
