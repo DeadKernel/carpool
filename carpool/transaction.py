@@ -28,10 +28,12 @@ def showRides(passroute):
                 requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
                 responseOne= urllib.request.urlopen(requestDriver).read()
                 directionOne = json.loads(responseOne)
-                
 
-                if document['Time'] > passroute['Time']:
-                    continue
+
+                a = dt.strptime(document['Time'],"%m/%d/%y")
+                b = dt.strptime(passroute['Time'], "%m/%d/%y")
+                if a>b:
+                        continue
                 else:
                     addedWaypoints =originalWaypoints+'|'+originPassenger
                     requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
