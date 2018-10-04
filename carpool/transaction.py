@@ -28,7 +28,7 @@ def showRides(passroute):
                 originDriver = document['Start']
                 destinationDriver =document['End']
                 originalWaypoints=document['waypoints']
-
+                print("Toshal")
                 requestChecker = base + urllib.parse.urlencode({'origin':originDriver, 'destination':originPassenger, 'waypoints':originalWaypoints,'key':api_key})
                 responseCheck= urllib.request.urlopen(requestChecker).read()
                 directionCheck = json.loads(responseCheck)
@@ -39,11 +39,11 @@ def showRides(passroute):
                 for index in range(len(legsCheck)):
                     distanceCheck.append(legsCheck[index]['distance']['value'])
                     durationCheck.append(legsCheck[index]['duration']['value'])
-
                 total_distance_check = float(sum(distanceCheck))/1000
                 total_time_check = timedelta(seconds=sum(durationCheck))
                 startDriver = a
                 startPassenger = b
+                print("Toshal")
                 if startDriver+total_time_check > startPassenger:
                     continue
                 else:
@@ -89,14 +89,20 @@ def showRides(passroute):
                     print(total_distance_two,'km')
                     print(str(total_time_two))
 
-                    distanceFlex = document["Distance_flex"]
-                    timeFlex = document["Time_flex"]
+                    distanceFlex =int(document['Distance_flex'])
+                    timeFlex = int(document['Time_flex'])
                     newDistanceFlex = round((total_distance_two-total_distance_one)/total_distance_one*100)
                     newTimeFlex = round((totalDurationTwo-totalDurationOne)/totalDurationOne*100)
                     if newDistanceFlex>distanceFlex:
+                        print("rejected")
                         continue
                     elif newTimeFlex>timeFlex:
+                        print("rejected")
                         continue
+
+                    print(total_distance_two,'km')
+                    print(str(total_time_two))
+
                 #waypoints.append('Swargate')
                 #waypoints.append('Baner')
 
