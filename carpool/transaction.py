@@ -42,8 +42,8 @@ def showRides(passroute):
 
                 total_distance_check = float(sum(distanceCheck))/1000
                 total_time_check = timedelta(seconds=sum(durationCheck))
-                startDriver = document['Time']
-                startPassenger = passroute['Time']
+                startDriver = a
+                startPassenger = b
                 if startDriver+total_time_check > startPassenger:
                     continue
                 else:
@@ -91,9 +91,9 @@ def showRides(passroute):
 
                     distanceFlex = document["Distance_flex"]
                     timeFlex = document["Time_flex"]
-                    newDistanceFlex = round((total_distance_two-total_time_one)/total_time_one*100)
+                    newDistanceFlex = round((total_distance_two-total_distance_one)/total_distance_one*100)
                     newTimeFlex = round((totalDurationTwo-totalDurationOne)/totalDurationOne*100)
-                    if newDistanceFlex>timeFlex:
+                    if newDistanceFlex>distanceFlex:
                         continue
                     elif newTimeFlex>timeFlex:
                         continue
