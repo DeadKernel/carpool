@@ -44,7 +44,6 @@ def takeRoute():
             "mailid":mailid1,
             "Start":place1,
             "End":place2,
-            "Date":date,
             "Time":date,
             "Distance_flex":None,
             "Time_flex":None,
@@ -66,8 +65,16 @@ def takeRoute():
 @bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-     user_details = {
-        'name': 'John',
-        'email': 'john@doe.com'
+    mailid=session_name()
+    db,conn1=connector()
+    users = db.users
+    user_prof = users.find_one({'mailid' : mailid })
+    user_details = {
+        'Name':user_prof['name'],
+        'email':mailid,
+        'Mobile_No':user_prof['phno'],
+        'Car_Number':user_prof['car_details'],
+        'Car_Model':user_prof['car_details'][0]
+        #'licence_Number':user_prof['car_details'][2]
     }
     return render_template('AfterLogin/index.html',user=user_details)

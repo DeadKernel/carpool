@@ -30,8 +30,8 @@ def showRides(passroute):
                 directionOne = json.loads(responseOne)
 
 
-                a = dt.strptime(document['Time'],"%m/%d/%y")
-                b = dt.strptime(passroute['Time'], "%m/%d/%y")
+                a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
+                b = dt.strptime(passroute['Time'], "%m/%d/%Y  %I:%M %p")
                 if a>b:
                         continue
                 else:
