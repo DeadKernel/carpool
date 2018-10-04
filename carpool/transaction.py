@@ -15,24 +15,27 @@ bp = Blueprint('afterbookride', __name__, url_prefix='/bookride')
 def showRides(passroute):
     db,conn1=connector()
     rides= db.offerride
-
-    for document in rides.find():
-                base = 'https://maps.googleapis.com/maps/api/directions/json?'
-                api_key ='AIzaSyDsDBCYF8CBpzPI4kE7PxqtuQBoLVv2Crc'
+    originPassenger = passroute['Start']
+    destinationPassenger = passroute['End']
+    base = 'https://maps.googleapis.com/maps/api/directions/json?'
+    api_key ='AIzaSyDsDBCYF8CBpzPI4kE7PxqtuQBoLVv2Crc'
+    for document in rides.find({"End":destinationPassenger}):
                 originDriver = document['Start']
                 destinationDriver =document['End']
-                originPassenger = passroute['Start']
-                destinationPassenger = passroute['End']
+                originalWaypoints=document['waypoints']
 
-                if destinationDriver != destinationPassenger:
+                requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
+                responseOne= urllib.request.urlopen(requestDriver).read()
+                directionOne = json.loads(responseOne)
+                
+
+                if document['Time'] > passroute['Time']:
                     continue
                 else:
-                    originalWaypoints=document['waypoints']
-                    addedwaypoints =originalwaypoints+'|'+originPassenger
-                    requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'key':api_key})
-                    requestTotal = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originPassenger, 'key':api_key})
+                    addedWaypoints =originalWaypoints+'|'+originPassenger
+                    requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
+                    requestTotal = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':addedWaypoints, 'key':api_key})
                     responseOne= urllib.request.urlopen(requestDriver).read()
-
                     responseTwo = urllib.request.urlopen(requestTotal).read()
 
                     directionOne = json.loads(responseOne)
