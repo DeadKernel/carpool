@@ -48,7 +48,7 @@ def takeRoute():
             "Distance_flex":None,
             "Time_flex":None,
             "No_of_persons":None,
-            "waypoints":[]
+            "waypoints":""
         }
         db,conn1 = connector()
         if request.form['Ride'] == 'Book Ride':
