@@ -20,16 +20,28 @@ def showRides(passroute):
     base = 'https://maps.googleapis.com/maps/api/directions/json?'
     api_key ='AIzaSyDsDBCYF8CBpzPI4kE7PxqtuQBoLVv2Crc'
     for document in rides.find({"End":destinationPassenger}):
+                if document['Time'] > passroute['Time']:
+                    continue
                 originDriver = document['Start']
                 destinationDriver =document['End']
                 originalWaypoints=document['waypoints']
 
-                requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
-                responseOne= urllib.request.urlopen(requestDriver).read()
-                directionOne = json.loads(responseOne)
-                
+                requestChecker = base + urllib.parse.urlencode({'origin':originDriver, 'destination':originPassenger, 'waypoints':originalWaypoints,'key':api_key})
+                responseCheck= urllib.request.urlopen(requestChecker).read()
+                directionCheck = json.loads(responseCheck)
+                routesCheck = directionCheck['routes']
+                legsCheck = routesCheck[0]['legs']
+                distanceCheck = []
+                durationCheck = []
+                for index in range(len(legsCheck)):
+                    distanceCheck.append(legsCheck[index]['distance']['value'])
+                    durationCheck.append(legsCheck[index]['duration']['value'])
 
-                if document['Time'] > passroute['Time']:
+                total_distance_check = float(sum(distanceCheck))/1000
+                total_time_check = timedelta(seconds=sum(durationCheck))
+                startDriver = document['Time']
+                startPassenger = passroute['Time']
+                if startDriver+total_time_check > startPassenger:
                     continue
                 else:
                     addedWaypoints =originalWaypoints+'|'+originPassenger
@@ -53,8 +65,10 @@ def showRides(passroute):
                         durationOne.append(legsOne[index]['duration']['value'])
 
                     total_distance_one = float(sum(distanceOne))/1000
+                    total_distance_one =round(total_distance_one,1)
                     total_time_one = timedelta(seconds=sum(durationOne))
-                    print(round(total_distance_one,1),'km')
+                    totalDurationOne = sum(durationOne)
+                    print(total_distance_one,'km')
                     print(str(total_time_one))
 
                     routesTwo = directionTwo['routes']
@@ -66,10 +80,20 @@ def showRides(passroute):
                         durationTwo.append(legsTwo[index]['duration']['value'])
 
                     total_distance_two = float(sum(distanceTwo))/1000
+                    total_distance_two =round(total_distance_two,1)
                     total_time_two = timedelta(seconds=sum(durationTwo))
-                    print(round(total_distance_two,1),'km')
+                    totalDurationTwo= sum(durationTwo)
+                    print(total_distance_two,'km')
                     print(str(total_time_two))
 
+                    distanceFlex = document["Distance_flex"]
+                    timeFlex = document["Time_flex"]
+                    newDistanceFlex = round((total_distance_two-total_time_one)/total_time_one*100)
+                    newTimeFlex = round((totalDurationTwo-totalDurationOne)/totalDurationOne*100)
+                    if newDistanceFlex>timeFlex:
+                        continue
+                    elif newTimeFlex>timeFlex:
+                        continue
                 #waypoints.append('Swargate')
                 #waypoints.append('Baner')
 
