@@ -3,6 +3,7 @@ import functools
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
+
 from werkzeug.security import check_password_hash, generate_password_hash
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
@@ -28,7 +29,7 @@ def update():
                     "No_of_persons":persons}
             }
             )
-            return('Okay')
+            return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/offerRide.html')
 
 @bp.route('/begin', methods=['GET', 'POST'])
@@ -61,3 +62,12 @@ def takeRoute():
             return redirect(url_for('insidelogin.update'))
 
     return render_template('AfterLogin/Begin.html')
+
+@bp.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+     user_details = {
+        'name': 'John',
+        'email': 'john@doe.com'
+    }
+    return render_template('AfterLogin/index.html',user=user_details)
