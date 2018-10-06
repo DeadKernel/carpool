@@ -1,5 +1,6 @@
 import functools
-
+import random
+import string
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
@@ -8,6 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
 from carpool.transaction import *
+
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/auth')
 
@@ -29,11 +31,27 @@ def update():
                     "No_of_persons":persons}
             }
             )
-            return redirect(url_for('insidelogin.profile'))
+            return redirect(url_for('insidelogin.drivercode'))
     return render_template('AfterLogin/offerRide.html')
 
 @bp.route('/cardeets',methods=['GET','POST'])
 def cardeets():
+        if request.method=='POST':
+                mailid1= session_name()
+                plate=request.form['plate']
+                model=request.form['model']
+                license=request.form['license']
+
+                db,conn1 = connector()
+                user= db.users
+                user.update_many(
+                {"mailid": mailid1},
+                {'$set': { "car_details.0.plate":plate,
+                        "car_details.0.model":model,
+                        "car_details.0.license":license}
+                }
+                )
+                return redirect(url_for('insidelogin.profile'))
         return render_template('auth/cardeets.html')
 @bp.route('/begin', methods=['GET', 'POST'])
 @login_required
@@ -58,13 +76,51 @@ def takeRoute():
             showRides(routeinfo)
 
         if request.form['Ride'] == 'Offer Ride':
+            user=db.users
+            car=user.find({'mailid':mailid1},{'_id':0,'car_details':1})
+            plate=car[0]['car_details'][0]['plate']
+            print (plate)
+            if plate == None:
+                return render_template('AfterLogin/Begin.html',check=0)
             ride= db.offerride
             ride.insert_one(routeinfo)
             #print(session['username'])
             return redirect(url_for('insidelogin.update'))
 
     return render_template('AfterLogin/Begin.html')
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+   return ''.join(random.choice(chars) for _ in range(size))
 
+@bp.route('/drivercode', methods=['GET', 'POST'])
+@login_required
+def drivercode():
+
+    db,conn1=connector()
+    mailid=session_name()
+    codes=db.codes
+    exists=codes.find_one({'mailid':mailid})
+    if exists is None:
+        code=id_generator()
+        codes.insert_one({'mailid':mailid,'code':code})
+    else:
+        code=exists['code'];
+
+    return render_template('AfterLogin/congrat.html',code=code)
+
+@bp.route('/passengercode',methods=['GET','POST'])
+@login_required
+def passengercode():
+    mailid=session_name()
+    db,conn1=connector()
+    codes=db.codes
+    if request.method=='POST':
+        code=request.form['code1']
+        match=codes.find_one({'code':code})
+        if match is None:
+            return render_template('AfterLogin/yay.html',match=0)
+        else:
+            return redirect(url_for('insidelogin.profile'))
+    return render_template('AfterLogin/yay.html')
 @bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
