@@ -113,7 +113,8 @@
   </div>
 </nav>
 
-<center style="margin:2.2vw 3vh"> <form name="login" onsubmit="return validateForm()" method="POST">
+<center style="margin:2.2vw 3vh">
+	<form name="login" onsubmit="return validateForm()" method="POST" id="signup">
 	<header> SIGN-UP FORM </header>
 <br>
 <table id="user" style= style="font-size:1.5vw">
@@ -140,7 +141,7 @@
 <input type="submit" value="Submit" name="Submit">
 <input type="reset" value="Reset" name="Reset">
 <br><br>
-<p>Already have an account?<a href= "login.html" target="_blank">Log in</a></p>
+<p>Already have an account?<a href="{{ url_for('auth.login') }}" >Log in</a></p>
 </br>
 
 </form>
@@ -186,8 +187,10 @@ function carOwn() {
 	var x = document.getElementById("conditional_part");
 	if (x.style.display ==="none") {
 		x.style.display = "block";
+		document.getElementById('signup').style.height = "130vh";
 	} else {
 		x.style.display = "none";
+		document.getElementById('signup').style.height = "90vh";
 	}
 }
 </script>
