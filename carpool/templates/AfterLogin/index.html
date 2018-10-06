@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html >
 
 <head>
@@ -11,8 +11,6 @@
   <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css"> -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker-standalone.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 <style>
 
 body {
@@ -59,7 +57,7 @@ header{
 .sidebar {
   width: 240px;
   height: 100%;
-  background: #293949;
+  background: #2d2d30;
   position: fixed;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
@@ -73,17 +71,8 @@ header{
   margin: -4px 0 0;
   padding: 0;
 }
-#w {
-  display: block;
-  width: 800px;
-  margin: 0 auto;
-  padding-top: 80px;
-  padding-bottom: 45px;
-}
 
 
-article, aside, details, figcaption, figure, footer, hgroup, menu, nav, section { display: block; }
-ol, ul { list-style: none; }
 
 input, textarea {
   -webkit-font-smoothing: antialiased;
@@ -114,61 +103,9 @@ h1 {
   padding: .1em 0;
   color: #444;
   position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  text-align: center;
-}
-h1:before,
-h1:after {
-  content: "";
-  position: relative;
-  display: inline-block;
-  width: 50%;
-  height: 1px;
-  vertical-align: middle;
-  background: #f0f0f0;
-}
-h1:before {
-  left: -.5em;
-  margin: 0 0 0 -50%;
-}
-h1:after {
-  left: .5em;
-  margin: 0 -50% 0 0;
-}
-h1 > span {
-  display: inline-block;
-  vertical-align: middle;
-  white-space: normal;
-}
-
-
-h2 {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 2.1em;
-  line-height: 1.4em;
-  letter-spacing: normal;
-  margin-bottom: 20px;
-  padding: .1em 0;
-  color: #444;
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
   text-align: center;
 }
 
-p {
-  display: block;
-  font-size: 1.4em;
-  line-height: 1.55em;
-  margin-bottom: 22px;
-  color: #555;
-}
-
-a { color: #5a9352; text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.center { display: block; text-align: center; }
 
 /** page structure **/
 #w {
@@ -178,18 +115,6 @@ a:hover { text-decoration: underline; }
   padding-top: 80px;
   padding-bottom: 45px;
 }
-
-#content {
-  display: block;
-  width: 100%;
-  background: #fff;
-  padding: 25px 20px;
-  padding-bottom: 35px;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
-}
-
 #userphoto {
   display: block;
   float: right;
@@ -203,14 +128,6 @@ a:hover { text-decoration: underline; }
   -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
   -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
   box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-
-
-/** profile nav links **/
-#profiletabs {
-  display: block;
-  margin-bottom: 4px;
-  height: 50px;
 }
 .navbar {
       font-family: Montserrat, sans-serif;
@@ -235,73 +152,25 @@ a:hover { text-decoration: underline; }
   .navbar-default .navbar-toggle {
       border-color: transparent;
   }
-#profiletabs ul { list-style: none; display: block; width: 70%; height: 50px; }
-#profiletabls ul li { float: left; }
-#profiletabs ul li a {
-  display: block;
-  float: left;
-  padding: 8px 11px;
-  font-size: 1.2em;
-  font-weight: bold;
-  background: #eae8db;
-  color: #666;
-  margin-right: 7px;
-  border: 1px solid #fff;
-  -webkit-border-radius: 5px;
-  -webkit-border-bottom-left-radius: 0;
-  -moz-border-radius: 5px;
-  -moz-border-radius-bottomleft: 0;
-  border-radius: 5px;
-  border-bottom-left-radius: 0;
-}
-#profiletabs ul li a:hover {
-  text-decoration: none;
-  background: #dad7c2;
-  color: #565656;
-}
 
-#profiletabs ul li a.sel {
-  background: #fff;
-  border-color: #d1cdb5;
-}
-
-
-/** profile content sections **/
-.hidden {
-  display: none;
-}
 
 br { line-height: 25px; }
 
-table, th, td {
-    border: 1px solid black;
+table {
+    float:center;
     border-collapse: collapse;
+
 }
 th, td {
-    padding: 10px;
-}
-th {
-    font-size:15px;
+  color:black;
+    padding: 5px;
+    border: 1px solid black;
     text-align: left;
 }
-
 .heading{
   font-weight: bold;
 }
 
-
-#friendslist li a img { float: left; margin-right: 5px; }
-
-/** clearfix **/
-.clearfix:after { content: "."; display: block; clear: both; visibility: hidden; line-height: 0; height: 0; }
-.clearfix { display: inline-block; }
-
-html[xmlns] .clearfix { display: block; }
-* html .clearfix { height: 1%; }
-.sidebar #leftside-navigation ul li {
-  list-style-type: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
 .sidebar #leftside-navigation ul li.active > a {
   color: #1abc9c;
 }
@@ -323,32 +192,6 @@ html[xmlns] .clearfix { display: block; }
 }
 .sidebar #leftside-navigation ul li a:hover {
   color: #1abc9c;
-}
-.sidebar #leftside-navigation ul li a span {
-  display: inline-block;
-}
-.sidebar #leftside-navigation ul li a i {
-  width: 20px;
-}
-.sidebar #leftside-navigation ul li a i .fa-angle-left,
-.sidebar #leftside-navigation ul li a i .fa-angle-right {
-  padding-top: 20px;
-}
-.sidebar #leftside-navigation ul ul {
-  display: none;
-}
-.sidebar #leftside-navigation ul ul li {
-  background: #23313f;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  border-bottom: none;
-}
-.sidebar #leftside-navigation ul ul li a {
-  font-size: 12px;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  color: #aeb2b7;
 }
 
     </style>
@@ -380,71 +223,60 @@ html[xmlns] .clearfix { display: block; }
     </div>
   </nav>
  <br><br>
-  <aside class="sidebar">
-  <div id="leftside-navigation" class="nano">
-    <ul class="nano-content">
-      <li>
-        <a href="index.html"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-      </li>
-      <li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-cogs"></i><span>UI Elements</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+ <div class="sidebar">
+ <div id="leftside-navigation" class="nano">
+   <ul class="nano-content">
+     <li>
+       <a href="index.html"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+     </li>
+     <li class="sub-menu">
+       <a href="javascript:void(0);"><i class="fa fa-cogs"></i><span>My Trips </span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
-      </li>
-      <li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa-table"></i><span>Tables</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+     </li>
+     <li class="sub-menu">
+       <a href="javascript:void(0);"><i class="fa fa-table"></i><span>Previous Rides</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
-      </li>
-      <li class="sub-menu">
-        <a href="javascript:void(0);"><i class="fa fa fa-tasks"></i><span>Forms</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+     </li>
+     <li class="sub-menu">
+       <a href="javascript:void(0);"><i class="fa fa fa-tasks"></i><span>Payments</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
-      </li>
-        </div>
-</aside>
-   <div id="w">
-    <div id="content" class="clearfix">
-      <div id="userphoto"><img src="../static/user.jpeg" alt="default avatar"></div>
+     </li>
+       </div>
+</div>
+ <div class="container-fluid">
+
+
+      <div class="col-xs-3">
+          </div>
+
+    <div class="col-xs-9">
       <h1> Profile</h1>
+        <div id="userphoto"><img src="../static/user.jpeg" alt="default avatar"></div>
 
-      <section id="bio">
-        <p>Name: <br> Email: <br> Phone Number: <br> Car Number: <br> License No.: <br>
-        </p>
-        <p>{{user.Name}}</p>
-     <p>{{user.email}}</p>
-     <p>{{user.Mobile_No}}</p>
-     <p>{{user.Car_Number}}</p>
-     <p>{{user.Car_Model}}</p>
-     <p>{{user.licence_Number}}</p>
+        <table style="width:70%;" >
+          <tr>
+          <td>Name :</td>
+          <td>{{user.Name}}</td>
+          </tr>
+          <tr>
+          <td>Email:</td>
+          <td>{{user.email}}</td>
+        </tr>
+        <tr>
+          <td>Phone Number:</td>
+          <td>{{user.Mobile_No}}</td>
+        </tr>
+        <tr>
+          <td>CarNumber :</td>
+            <td>{{user.Car_Number}}</td>
+        </tr>
+      </table>
+      </div><!-- @end #content -->
+    </div><!-- @end #w -->
+    </div>
+</div>
 
-      </section>
 
-      <section id="transaction" class="hidden">
-        <table style="width:100%">
-  <tr class="heading">
-    <th> Drivers Name</th>
-    <th> Start Destination </th>
-    <th> End Destination </th>
-    <th> Start Time </th>
-    <th> End Time </th>
-    <th> Fare </th>
-  </tr>
-
-  <tr>
-    <th> Rhea </th>
-    <th> Lonavala </th>
-    <th> KLN </th>
-    <th> 12:00 PM </th>
-    <th> 1:00 PM </th>
-    <th> Rs. 1900 </th>
-  </tr>
-
-</table>
-      </section>
-
-      <center>
-      <button type="submit" class="btn btn-default" style="padding: 13px; border-radius:20px; font-size:17px; font-family:georgia; background-color:white;border:1px solid black; color:black "> Start your ride! </button>
-    </center>
-    </div><!-- @end #content -->
-  </div><!-- @end #w -->
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
