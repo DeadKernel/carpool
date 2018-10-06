@@ -15,7 +15,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/')
 def index():
     if 'username' in session:
-        return redirect(url_for('auth.begin'))
+        return redirect(url_for('insidelogin.profile'))
     return render_template('auth/login.html')
 
 @bp.route('/login', methods=['GET','POST'])
@@ -33,9 +33,6 @@ def login():
             return 'Invalid username/password combination'
 
     return render_template('auth/login.html')
-@bp.route('/begin')
-def begin():
-        return render_template('AfterLogin/Begin.html')
 @bp.route('/home')
 def auth():
     return render_template('auth/home.html')
@@ -121,7 +118,7 @@ def register():
         if error is None:
             user= db.users
             user.insert_one(userinfo)
-            return ("okay")
+            return redirect(url_for('auth.login'))
         flash(error)
 
     return render_template('auth/signup.html')

@@ -89,7 +89,7 @@ blockquote:before, blockquote:after, q:before, q:after { content: ''; content: n
 strong { font-weight: bold; }
 
 table { border-collapse: collapse; border-spacing: 0; }
-img { border: 0; max-width: 100%; }
+img { border: 0; max-width: 80%; }
 
 
 
@@ -110,7 +110,7 @@ h1 {
 /** page structure **/
 #w {
   display: block;
-  width: 800px;
+  width: 700px;
   margin: 0 auto;
   padding-top: 80px;
   padding-bottom: 45px;
@@ -163,9 +163,10 @@ table {
 }
 th, td {
   color:black;
+  border-bottom: 1px solid #f0f0f0;
     padding: 5px;
-    border: 1px solid black;
     text-align: left;
+    font-size: 20px;
 }
 .heading{
   font-weight: bold;
@@ -241,6 +242,10 @@ th, td {
        <a href="javascript:void(0);"><i class="fa fa fa-tasks"></i><span>Payments</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
      </li>
+     <li class="sub-menu">
+       <a href="javascript:void(0);" onclick="myFunction()"><i class="fa fa fa-tasks" ></i><span>Add Car </span><i class="arrow fa fa-angle-right pull-right"></i></a>
+
+     </li>
        </div>
 </div>
  <div class="container-fluid">
@@ -254,21 +259,29 @@ th, td {
         <div id="userphoto"><img src="../static/user.jpeg" alt="default avatar"></div>
 
         <table style="width:70%;" >
-          <tr>
-          <td>Name :</td>
-          <td>{{user.Name}}</td>
+          <tr height="70">
+          <td width="40%">Name :</td>
+          <td width="60%">{{user.Name}}</td>
           </tr>
-          <tr>
+          <tr height="70">
           <td>Email:</td>
           <td>{{user.email}}</td>
         </tr>
-        <tr>
+        <tr height="70">
           <td>Phone Number:</td>
           <td>{{user.Mobile_No}}</td>
         </tr>
-        <tr>
-          <td>CarNumber :</td>
+        <tr height="70">
+          <td>Car Number :</td>
             <td>{{user.Car_Number}}</td>
+        </tr>
+        <tr height="70">
+          <td>Car Model :</td>
+            <td>{{user.Car_Model}}</td>
+        </tr>
+        <tr height="70">
+          <td>License Number :</td>
+            <td>{{user.licence_Number}}</td>
         </tr>
       </table>
       </div><!-- @end #content -->
@@ -281,6 +294,9 @@ th, td {
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
     <script>
+    function myFunction() {
+    var check=confirm("It will override the previous Stored values!! . Do you still want to continue.");
+}
     $("#leftside-navigation .sub-menu > a").click(function(e) {
   $("#leftside-navigation ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(),
   e.stopPropagation()

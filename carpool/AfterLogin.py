@@ -69,13 +69,16 @@ def profile():
     db,conn1=connector()
     users = db.users
     user_prof = users.find_one({'mailid' : mailid })
-    plate=users.find({"mailid":mailid},{"car_details.plate":1})
+    car=users.find({'mailid':mailid},{'_id':0,'car_details':1})
+    plate=car[0]['car_details'][0]['plate']
+    model=car[0]['car_details'][0]['model']
+    license=car[0]['car_details'][0]['license']
     user_details = {
         'Name':user_prof['name'],
         'email':mailid,
         'Mobile_No':user_prof['phno'],
-        'Car_Number':plate
-        #'Car_Model':model,
-        #'licence_Number':license
+        'Car_Number':plate,
+        'Car_Model':model,
+        'licence_Number':license
         }
     return render_template('AfterLogin/index.html',user=user_details)
