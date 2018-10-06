@@ -19,6 +19,7 @@ def showRides(passroute):
     originPassenger = passroute['Start']
     destinationPassenger = passroute['End']
     base = 'https://maps.googleapis.com/maps/api/directions/json?'
+    displayrides = []
     api_key ='AIzaSyDsDBCYF8CBpzPI4kE7PxqtuQBoLVv2Crc'
     for document in rides.find({"End":destinationPassenger}):
                 a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
@@ -102,6 +103,10 @@ def showRides(passroute):
 
                     print(total_distance_two,'km')
                     print(str(total_time_two))
+
+                    findUsers= db.users
+                    getUserInfo =findUsers.find_one({'mailid':document['mailid']})
+                    print(getUserInfo)
 
                 #waypoints.append('Swargate')
                 #waypoints.append('Baner')
