@@ -32,6 +32,9 @@ def update():
             return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/offerRide.html')
 
+@bp.route('/cardeets',methods=['GET','POST'])
+def cardeets():
+        return render_template('auth/cardeets.html')
 @bp.route('/begin', methods=['GET', 'POST'])
 @login_required
 def takeRoute():

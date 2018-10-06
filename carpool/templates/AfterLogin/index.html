@@ -296,6 +296,11 @@ th, td {
     <script>
     function myFunction() {
     var check=confirm("It will override the previous Stored values!! . Do you still want to continue.");
+    if(check==true)
+    {
+      window.location="{{url_for('insidelogin.cardeets')}}";
+    }
+
 }
     $("#leftside-navigation .sub-menu > a").click(function(e) {
   $("#leftside-navigation ul ul").slideUp(), $(this).next().is(":visible") || $(this).next().slideDown(),
