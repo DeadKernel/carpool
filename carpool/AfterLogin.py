@@ -105,7 +105,7 @@ def drivercode():
     mailid=session_name()
     codes=db.codes
     code=id_generator()
-    codes.insert_one({'mailid':mailid,'code':code,'Time':session.get('time',None))})
+    codes.insert_one({'mailid':mailid,'code':code,'Time':session.get('time',None)})
     return render_template('AfterLogin/congrat.html',code=code)
 
 @bp.route('/passengercode',methods=['GET','POST'])
