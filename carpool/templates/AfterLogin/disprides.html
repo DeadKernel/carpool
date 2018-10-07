@@ -9,16 +9,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-
-</script>
-
 <style>
-    header{
-        background-color: #0D4F8B;
-        text-align: center;
-        padding: 20px;
-        color:     white;
-    }
+	header{
+		background-color: #0D4F8B;
+		text-align: center;
+		padding: 20px;
+		color: 	white;
+	}
 
   .navbar {
       font-family: Montserrat, sans-serif;
@@ -61,14 +58,21 @@
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
-
+input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
 input[type=submit] {
-    padding: 10px 20px;
+	padding: 10px 20px;
       color: #f1f1f1;
       border-radius: 0;
       transition: .2s;
     background-color: #333;
-     width:40%;
+ 	width:100%;
 }
 
 input[type=submit]:hover {
@@ -95,7 +99,7 @@ input[type=submit]:hover {
       </button>
       <a class="navbar-brand" href="extra.html#myPage">Carpooler's Galore</a>
     </div>
-       <div class="collapse navbar-collapse" id="myNavbar">
+   	<div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="home.html">HOME</a></li>
         <li><a href="home.html#band">ABOUT</a></li>
@@ -107,20 +111,41 @@ input[type=submit]:hover {
   </div>
 </nav>
 <br><br><br>
-      <div class="container">
-  <div class="card-columns">
+  <div class="container">
+     <div class="card-columns">
+
    <!--<p>{{displayrides}}</p>-->
-   {% for message in displayrides %}
-        <div class="card">
-              <h4><b>Name: {{message.name}}</b></h4>
-          <p>Car Model: {{message.model}}</p>
-          <p>Car Number: {{message.plate}}</p>
-          <p>Start: {{message.start}}</p>
-          <p>End: {{message.end}}</p>
-          <p>cost:{{message.cost}}</p>
+    {% for i in range(displayrides|length) %}
+         <div class="card">
+            <h4><b>Name: {{displayrides[i].name}}</b></h4>
+
+          <p>Car Model: {{displayrides[i].model}}</p>
+          <p>Car Number: {{displayrides[i].plate}}</p>
+          <p>Start: {{displayrides[i].start}}</p>
+          <p>End: {{displayrides[i].end}}</p>
+          <p>cost:{{displayrides[i].cost}}</p>
         </div>
         {% endfor %}
+
       </div>
+  </div>
+  <div class="row">
+   <div class="col-xs-3"></div>
+   <div class="col-xs-6">
+  <form method="POST" name="submitride">
+  <label for="rides" style="margin-top:1vh">Select Ride</label>
+  <select name="rides" id="rides" style="width:80vh">
+   {% for i in range(displayrides|length) %}
+   <option value={{i}}>{{i+1}}</option>
+   {% endfor %}
+  </select>
+  <br>
+  <input type="submit" value="Submit" name="Submit">
+ </div>
+ <div class="col-xs-3"></div>
+</div>
+
+  <div>
 </div>
 </body>
 </html>
