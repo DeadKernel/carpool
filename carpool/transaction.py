@@ -1,5 +1,6 @@
 import urllib.request
 import json
+import ast
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
 from flask import (
@@ -14,7 +15,10 @@ bp = Blueprint('afterbookride', __name__, url_prefix='/bookride')
 
 @bp.route('/bookprocess', methods=['GET', 'POST'])
 @login_required
-def showRides(passroute):
+def showRides():
+    passroute =ast.literal_eval(session['routeinfo'])
+    #passroute= (passroute)
+    print(passroute)
     db,conn1=connector()
     rides= db.offerride
     originPassenger = passroute['Start']
@@ -139,4 +143,5 @@ def showRides(passroute):
                 #waypoints.append('Swargate')
                 #waypoints.append('Baner')
 
-    return render_template('AfterLogin/Begin.html')
+    print("Reached")
+    return render_template('AfterLogin/disprides.html',displayrides=displayrides)

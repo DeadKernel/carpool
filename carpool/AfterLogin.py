@@ -4,12 +4,11 @@ import string
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
+import json
 from werkzeug.security import check_password_hash, generate_password_hash
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
 from carpool.transaction import *
-
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/auth')
 
@@ -74,11 +73,13 @@ def takeRoute():
             "waypoints":""
         }
         db,conn1 = connector()
+        session['routeinfo']=str(routeinfo)
         if request.form['Ride'] == 'Book Ride':
-            showRides(routeinfo)
-
-        if request.form['Ride'] == 'Offer Ride':
+            return redirect(url_for('afterbookride.showRides'))
+            print("ComeBack")
+        elif request.form['Ride'] == 'Offer Ride':
             user=db.users
+            print("In offer Ride")
             car=user.find({'mailid':mailid1},{'_id':0,'car_details':1})
             plate=car[0]['car_details'][0]['plate']
             print (plate)
@@ -88,6 +89,7 @@ def takeRoute():
             ride.insert_one(routeinfo)
             #print(session['username'])
             session['time'] = routeinfo['Time']
+            print("Going to slider")
             return redirect(url_for('insidelogin.update'))
 
     return render_template('AfterLogin/Begin.html')
