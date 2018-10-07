@@ -155,4 +155,6 @@ def mytrips():
     db,conn1=connector()
     bookedRides=db.bookedRides
     passengerRides=bookedRides.find({'mailid':session_name()})
+    if request.method=='POST':
+        return redirect(url_for('insidelogin.passengercode'))
     return render_template('AfterLogin/mytrips.html',passengerRides=passengerRides)
