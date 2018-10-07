@@ -169,4 +169,5 @@ def ridehistory():
     rideHistory=[]
     for document in activeRides.find({'mailid':session_name()}):
         rideHistory.append(document)
-    return render_template('AfterLogin/history.html',passengerRides=passengerRides)
+    print (rideHistory)
+    return render_template('AfterLogin/history.html',ridehistory=rideHistory)
