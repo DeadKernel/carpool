@@ -236,13 +236,13 @@ tr:nth-child(even) {
   <th>Car Model</th>
   <th>Car Number</th>
 </tr>
-{% for i in range(pasengerRides|length) %}
+{% for i in range(passengerRides|length) %}
 <tr>
-  <th>{{pasengerRides[i].start}} </th>
-  <th>{{pasengerRides[i].end}} </th>
-  <th>{{pasengerRides[i].cost}} </th>
-  <th>{{pasengerRides[i].model}} </th>
-  <th>{{pasengerRides[i].cost}} </th>
+  <th>{{passengerRides[i].start}} </th>
+  <th>{{passengerRides[i].end}} </th>
+  <th>{{passengerRides[i].cost}} </th>
+  <th>{{passengerRides[i].model}} </th>
+  <th>{{passengerRides[i].cost}} </th>
 </tr>
 {% endfor %}
 </table>
