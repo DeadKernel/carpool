@@ -29,7 +29,7 @@ def showRides():
      # request to calculate cost
     requestCost = base + urllib.parse.urlencode({'origin':originPassenger, 'destination':destinationPassenger,'key':api_key})
     responseCost= urllib.request.urlopen(requestCost).read()
-    directionCost = json.loads(responseCost)
+    directionCost = json.loads(responseCost.decode('utf-8'))
     routesCost = directionCost['routes']
     legsCost = routesCost[0]['legs']
     distanceCost = []
@@ -51,7 +51,7 @@ def showRides():
         print("Toshal")
         requestChecker = base + urllib.parse.urlencode({'origin':originDriver, 'destination':originPassenger, 'waypoints':originalWaypoints,'key':api_key})
         responseCheck= urllib.request.urlopen(requestChecker).read()
-        directionCheck = json.loads(responseCheck)
+        directionCheck = json.loads(responseCheck.decode('utf-8'))
         routesCheck = directionCheck['routes']
         legsCheck = routesCheck[0]['legs']
         distanceCheck = []
@@ -73,8 +73,8 @@ def showRides():
             responseOne= urllib.request.urlopen(requestDriver).read()
             responseTwo = urllib.request.urlopen(requestTotal).read()
 
-            directionOne = json.loads(responseOne)
-            directionTwo = json.loads(responseTwo)
+            directionOne = json.loads(responseOne.decode('utf-8'))
+            directionTwo = json.loads(responseTwo.decode('utf-8'))
 
             #print(directionOne)
             #print(directionTwo)

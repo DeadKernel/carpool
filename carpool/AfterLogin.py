@@ -157,4 +157,8 @@ def mytrips():
     passengerRides=bookedRides.find({'mailid':session_name()})
     if request.method=='POST':
         return redirect(url_for('insidelogin.passengercode'))
+<<<<<<< HEAD
+=======
+
+>>>>>>> 522ab7e652f9baafe99c98eb40ea833468eabf18
     return render_template('AfterLogin/mytrips.html',passengerRides=passengerRides)
