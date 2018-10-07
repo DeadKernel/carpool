@@ -25,7 +25,7 @@ def update():
             db,conn1 = connector()
             ride= db.offerride
             ride.update_many(
-            {"mailid": mailid1},
+            {"mailid": mailid1,"Time":session.get('time',None)},
             {'$set': { "Distance_flex":distance,
                     "Time_flex":time,
                     "No_of_persons":persons}
@@ -35,6 +35,7 @@ def update():
     return render_template('AfterLogin/offerRide.html')
 
 @bp.route('/cardeets',methods=['GET','POST'])
+@login_required
 def cardeets():
         if request.method=='POST':
                 mailid1= session_name()
@@ -85,9 +86,11 @@ def takeRoute():
             ride= db.offerride
             ride.insert_one(routeinfo)
             #print(session['username'])
+            session['time'] = routeinfo['Time']
             return redirect(url_for('insidelogin.update'))
 
     return render_template('AfterLogin/Begin.html')
+
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
    return ''.join(random.choice(chars) for _ in range(size))
 
