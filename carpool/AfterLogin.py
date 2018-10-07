@@ -154,11 +154,10 @@ def profile():
 def mytrips():
     db,conn1=connector()
     bookedRides=db.bookedRides
-    passengerRides=bookedRides.find({'mailid':session_name()})
+    passengerRides=[]
+    for document in bookedRides.find({'mailid':session_name()}):
+        passengerRides.append(document)
+    print (passengerRides)
     if request.method=='POST':
         return redirect(url_for('insidelogin.passengercode'))
-<<<<<<< HEAD
-=======
-
->>>>>>> 522ab7e652f9baafe99c98eb40ea833468eabf18
     return render_template('AfterLogin/mytrips.html',passengerRides=passengerRides)
