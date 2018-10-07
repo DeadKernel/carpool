@@ -163,7 +163,7 @@ def mytrips():
 
 @bp.route('/ridehistory',methods=['GET','POST'])
 @login_required
-def mytrips():
+def ridehistory():
     db,conn1=connector()
     activeRides=db.activeRides
     rideHistory=[]
