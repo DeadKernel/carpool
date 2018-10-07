@@ -130,8 +130,8 @@ def showRides():
 
             tempdisplay={}
             tempdisplay['name']=getUserInfo['name']
-            tempdisplay['end']=document['Start']
-            tempdisplay['start']=document['End']
+            tempdisplay['end']=document['End']
+            tempdisplay['start']=document['Start']
             tempdisplay['model']=getUserInfo['car_details'][0]['model']
             tempdisplay['plate']=getUserInfo['car_details'][0]['plate']
             tempdisplay['cost']= ceil(totalCost)

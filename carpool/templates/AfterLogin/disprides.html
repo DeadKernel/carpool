@@ -110,15 +110,16 @@ input[type=submit]:hover {
       <div class="container">
   <div class="card-columns">
    <!--<p>{{displayrides}}</p>-->
-   
+   {% for message in displayrides %}
         <div class="card">
-              <h4><b>Name: {{displayrides[0].name}}</b></h4>
-          <p>Car Model: {{displayrides[0].model}}</p>
-          <p>Car Number: {{displayrides[0].plate}}</p>
-          <p>Start: {{displayrides[0].start}}</p>
-          <p>End: {{displayrides[0].end}}</p>
-          <p>cost:{{displayrides[0].cost}}</p>
+              <h4><b>Name: {{message.name}}</b></h4>
+          <p>Car Model: {{message.model}}</p>
+          <p>Car Number: {{message.plate}}</p>
+          <p>Start: {{message.start}}</p>
+          <p>End: {{message.end}}</p>
+          <p>cost:{{message.cost}}</p>
         </div>
+        {% endfor %}
       </div>
 </div>
 </body>
