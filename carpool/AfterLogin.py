@@ -18,9 +18,10 @@ bp = Blueprint('insidelogin', __name__, url_prefix='/auth')
 def update():
     if request.method=='POST':
             mailid1= session_name()
-            distance=request.form['slider1']
-            time=100-int(distance)
-            persons=request.form['seats']
+            distance=int(request.form['slider1'])
+
+            time=100-distance
+            persons=int(request.form['seats'])
 
             db,conn1 = connector()
             ride= db.offerride

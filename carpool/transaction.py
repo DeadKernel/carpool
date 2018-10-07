@@ -90,8 +90,8 @@ def showRides(passroute):
                     print(total_distance_two,'km')
                     print(str(total_time_two))
 
-                    distanceFlex =int(document['Distance_flex'])
-                    timeFlex = int(document['Time_flex'])
+                    distanceFlex =document['Distance_flex']
+                    timeFlex = document['Time_flex']
                     newDistanceFlex = round((total_distance_two-total_distance_one)/total_distance_one*100)
                     newTimeFlex = round((totalDurationTwo-totalDurationOne)/totalDurationOne*100)
                     if newDistanceFlex>distanceFlex:
