@@ -157,7 +157,16 @@ def mytrips():
     passengerRides=[]
     for document in bookedRides.find({'mailid':session_name()}):
         passengerRides.append(document)
-    print (passengerRides)
     if request.method=='POST':
         return redirect(url_for('insidelogin.passengercode'))
     return render_template('AfterLogin/mytrips.html',passengerRides=passengerRides)
+
+@bp.route('/ridehistory',methods=['GET','POST'])
+@login_required
+def mytrips():
+    db,conn1=connector()
+    activeRides=db.activeRides
+    rideHistory=[]
+    for document in activeRides.find({'mailid':session_name()}):
+        rideHistory.append(document)
+    return render_template('AfterLogin/history.html',passengerRides=passengerRides)
