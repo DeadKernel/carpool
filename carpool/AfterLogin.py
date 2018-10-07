@@ -104,13 +104,8 @@ def drivercode():
     db,conn1=connector()
     mailid=session_name()
     codes=db.codes
-    exists=codes.find_one({'mailid':mailid})
-    if exists is None:
-        code=id_generator()
-        codes.insert_one({'mailid':mailid,'code':code})
-    else:
-        code=exists['code'];
-
+    code=id_generator()
+    codes.insert_one({'mailid':mailid,'code':code,'Time':session.get('time',None)})
     return render_template('AfterLogin/congrat.html',code=code)
 
 @bp.route('/passengercode',methods=['GET','POST'])
@@ -119,12 +114,18 @@ def passengercode():
     mailid=session_name()
     db,conn1=connector()
     codes=db.codes
+    activeRides=db.activeRides
     if request.method=='POST':
         code=request.form['code1']
         match=codes.find_one({'code':code})
         if match is None:
             return render_template('AfterLogin/yay.html',match=0)
         else:
+            bookedRides=db.bookedRides
+            passengerActiveRide=bookedRides.find_one({'mailid':match['mailid'],'mailid':mailid})
+            activeRides.insert_one({'mailid':mailid,'trip':passengerActiveRide})
+            bookedRides.find_one_and_delete({'mailid':match['mailid'],'mailid':mailid})
+
             return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/yay.html')
 @bp.route('/profile', methods=['GET', 'POST'])
@@ -147,3 +148,14 @@ def profile():
         'licence_Number':license
         }
     return render_template('AfterLogin/index.html',user=user_details)
+
+@bp.route('/mytrips',methods=['GET','POST'])
+@login_required
+def mytrips():
+    db,conn1=connector()
+    bookedRides=db.bookedRides
+    passengerRides=bookedRides.find({'mailid':session_name()})
+    if request.method=='POST':
+        return redirect(url_for('insidelogin.passengercode'))
+
+    return render_template('AfterLogin/mytrips.html',passengerRides=passengerRides)
