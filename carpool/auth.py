@@ -63,7 +63,7 @@ def contact():
         if error is None:
             con= db.contact
             con.insert_one(contact)
-            return ("Okay")
+            return redirect(url_for('auth.auth'))
         flash(error)
     return render_template('auth/contact.html')
 @bp.route('/signup', methods=['GET', 'POST'])
