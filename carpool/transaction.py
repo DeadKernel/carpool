@@ -38,7 +38,7 @@ def showRides():
     total_distance_cost = float(sum(distanceCost))/1000
     totalCost = 15
     if total_distance_cost>1:
-        totalCost= (total_distance_cost-1)*5
+        totalCost+= (total_distance_cost-1)*5
 
     for document in rides.find({"End":destinationPassenger}):
         a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
