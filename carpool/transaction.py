@@ -25,6 +25,7 @@ def showRides():
     destinationPassenger = passroute['End']
     base = 'https://maps.googleapis.com/maps/api/directions/json?'
     displayrides = []
+    waypointsList =[]
     api_key ='AIzaSyDsDBCYF8CBpzPI4kE7PxqtuQBoLVv2Crc'
      # request to calculate cost
     requestCost = base + urllib.parse.urlencode({'origin':originPassenger, 'destination':destinationPassenger,'key':api_key})
@@ -68,6 +69,7 @@ def showRides():
             continue
         else:
             addedWaypoints =originalWaypoints+'|'+originPassenger
+
             requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
             requestTotal = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':addedWaypoints, 'key':api_key})
             responseOne= urllib.request.urlopen(requestDriver).read()
@@ -140,12 +142,14 @@ def showRides():
 
             #print(tempdisplay)
             displayrides.append(tempdisplay)
+            waypointsList.append(addedWaypoints)
 
     if request.method=='POST':
         rideOption=int(request.form['rides'])
         bookedRides=db.bookedRides
         bookedRides.insert_one({'mailid':session_name(),'route':displayrides[rideOption]})
         rides.find_one_and_update({'mailid':displayrides[rideOption]['mailid'],"Time":displayrides[rideOption]['time']},{'$inc':{'No_of_persons':-1}})
+        rides.find_one_and_update({'mailid':displayrides[rideOption]['mailid'],"Time":displayrides[rideOption]['time']},{'$set':{'waypoints':waypointsList[rideOption]}})
         rides.find_one_and_delete({'mailid':displayrides[rideOption]['mailid'],'No_of_persons':0})
         return redirect(url_for('insidelogin.passengercode'))
 
