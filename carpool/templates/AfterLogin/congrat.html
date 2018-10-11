@@ -136,10 +136,10 @@
 
 </table>
 <br><br>
-<div class="container" style="padding:2vh" id="time_verify">
+<div class="container" style="padding:2vh" >
   <div class="row">
   <div class="col-xs-6">
-<input type="submit" value="start ride" name="Submit">
+<input id="time_verify" type="submit" value="Start Ride" name="Submit"  disabled="disabled">
   </div>
 </div>
 </div>
@@ -151,12 +151,15 @@
 	var time_check;
  time_check= Date.parse('{{time}}');
  closing_time= time_check+600000;
-
   //OpeningTime = new Date(time_check.getFullYear(), time_check.getMonth(), time_check.getDate(),time_check.getTime());
   Open = (Now.getTime() > time_check && Now.getTime()<closing_time);
 	console.log('{{time}}');
 if (Open) {
 	 	console.log("Started");
+		document.getElementById("time_verify").disabled = false;
+}
+else{
+
 }
 </script>
 </body>

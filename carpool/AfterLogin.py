@@ -13,7 +13,17 @@ from carpool.auth import login_required,session_name
 from carpool.transaction import *
 
 bp = Blueprint('insidelogin', __name__, url_prefix='/auth')
-
+@bp.route('/admin',methods=('GET','POST'))
+@login_required
+def admin():
+        db,conn1 = connector()
+        user=db.users
+        count1=user.find().count()
+        price=db.bookedRides
+        cost=price.aggregate([{'$project':{"totalcost":{'$sum':'price.route.cost'}}}])
+        admin=db.base_price
+        admin_pass=admin.find_one()
+        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1)
 @bp.route('/offerRide',methods=('GET','POST'))
 @login_required
 def update():
@@ -47,6 +57,8 @@ def cardeets():
 
                 db,conn1 = connector()
                 user= db.users
+                admin=db.base_price
+                admin.update({},{'$inc':{'No_of_offers':1}})
                 user.update_many(
                 {"mailid": mailid1},
                 {'$set': { "car_details.0.plate":plate,
@@ -75,6 +87,7 @@ def takeRoute():
             "waypoints":""
         }
         db,conn1 = connector()
+
         session['routeinfo']=str(routeinfo)
         if request.form['Ride'] == 'Book Ride':
             return redirect(url_for('afterbookride.showRides'))
@@ -120,7 +133,7 @@ def drivercode():
             message = 'Your Ride has started .'
             print("ABC")
             #client.send_message(number,message)
-        return redirect(url_for('insidelogin.drivercode'))
+        return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/congrat.html',code=code,time=starttime['route']['time'])
 
 @bp.route('/passengercode',methods=['GET','POST'])

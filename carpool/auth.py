@@ -25,6 +25,11 @@ def login():
         users = db.users
 
         login_user = users.find_one({'mailid' : request.form['email']})
+        if login_user['mailid']=="admin@admin.com":
+            password=request.form['password']
+            if check_password_hash(login_user['password'], password):
+                session['username'] = request.form['email']
+                return redirect(url_for('insidelogin.admin'))
         if login_user:
             password=request.form['password']
             if check_password_hash(login_user['password'], password):

@@ -147,6 +147,8 @@ def showRides():
 
     if request.method=='POST':
         rideOption=int(request.form['rides'])
+        admin=db.base_price
+        admin.update({},{'$inc':{'No_of_books':1}})
         bookedRides=db.bookedRides
         bookedRides.insert_one({'mailid':session_name(),'route':displayrides[rideOption],'start':originPassenger})
         rides.find_one_and_update({'mailid':displayrides[rideOption]['mailid'],"Time":displayrides[rideOption]['time']},{'$inc':{'No_of_persons':-1}})
