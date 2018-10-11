@@ -150,10 +150,11 @@
   //CurrentDay = Now.getDay();
 	var time_check;
  time_check= Date.parse('{{time}}');
- var closing_time=time_check+600000
+ closing_time= time_check+600000;
+
   //OpeningTime = new Date(time_check.getFullYear(), time_check.getMonth(), time_check.getDate(),time_check.getTime());
   Open = (Now.getTime() > time_check && Now.getTime()<closing_time);
-
+	console.log('{{time}}');
 if (Open) {
 	 	console.log("Started");
 }

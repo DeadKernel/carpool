@@ -121,7 +121,7 @@ def drivercode():
             print("ABC")
             #client.send_message(number,message)
         return redirect(url_for('insidelogin.drivercode'))
-    return render_template('AfterLogin/congrat.html',code=code,time=starttime.get('route.time',0))
+    return render_template('AfterLogin/congrat.html',code=code,time=starttime['route']['time'])
 
 @bp.route('/passengercode',methods=['GET','POST'])
 @login_required
