@@ -127,9 +127,9 @@ input[type=submit]:hover {
     </div>
    	<div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="home.html">HOME</a></li>
-        <li><a href="home.html#band">ABOUT</a></li>
-        <li><a href="contact.html">CONTACT</a></li>
+        <li><a href="{{url_for('auth.auth')}}">HOME</a></li>
+        <li><a href="{{url_for('auth.auth')}}#band">ABOUT</a></li>
+        <li><a href="{{url_for('auth.contact')}}">CONTACT</a></li>
         <li><a href="{{url_for('insidelogin.profile')}}">PROFILE</a></li>
         <li><a href="{{url_for('auth.logout')}}">LOG-OUT</a></li>
     </ul>

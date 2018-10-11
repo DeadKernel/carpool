@@ -90,7 +90,7 @@
 
 <title>Sign-Up</title>
 </head>
-<body class="bg" data-spy="scroll" data-target=".navbar" data-offset="50">
+<body class="bg" data-spy="scroll" data-target=".navbar" data-offset="50" onload="return checker()">
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -193,5 +193,18 @@ function carOwn() {
 		document.getElementById('signup').style.height = "90vh";
 	}
 }
+</script>
+<script type="text/javascript">
+function checker()
+{
+  var check12 = {{check | safe}}
+  if (check12==0)
+    {
+
+      window.alert("This user is already registered")
+
+    }
+}
+
 </script>
 </html>

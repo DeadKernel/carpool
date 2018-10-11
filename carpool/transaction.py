@@ -45,7 +45,9 @@ def showRides():
         a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
         b = dt.strptime(passroute['Time'], "%m/%d/%Y  %I:%M %p")
         if a>b:
-                continue
+            continue
+        if document['mailid'] == session_name():
+            continue
         originDriver = document['Start']
         destinationDriver =document['End']
         originalWaypoints=document['waypoints']
@@ -69,8 +71,7 @@ def showRides():
             continue
         else:
             addedWaypoints =originalWaypoints+'|'+originPassenger
-
-            requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':originalWaypoints,'key':api_key})
+            requestDriver = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver,'key':api_key})
             requestTotal = base + urllib.parse.urlencode({'origin':originDriver, 'destination':destinationDriver, 'waypoints':addedWaypoints, 'key':api_key})
             responseOne= urllib.request.urlopen(requestDriver).read()
             responseTwo = urllib.request.urlopen(requestTotal).read()
@@ -153,9 +154,25 @@ def showRides():
         bookedRides.insert_one({'mailid':session_name(),'route':displayrides[rideOption],'start':originPassenger})
         rides.find_one_and_update({'mailid':displayrides[rideOption]['mailid'],"Time":displayrides[rideOption]['time']},{'$inc':{'No_of_persons':-1}})
         rides.find_one_and_update({'mailid':displayrides[rideOption]['mailid'],"Time":displayrides[rideOption]['time']},{'$set':{'waypoints':waypointsList[rideOption]}})
-        rides.find_one_and_delete({'mailid':displayrides[rideOption]['mailid'],'No_of_persons':0})
+        # Check if ride is full and if full add kilometers to admin kilometers
+        fullRide=rides.find_one({'mailid':displayrides[rideOption]['mailid'],'No_of_persons':0})
+        if fullRide!=None:
+            requestCalculate = base + urllib.parse.urlencode({'origin':fullRide['Start'], 'destination':fullRide['End'], 'waypoints':fullRide['waypoints'],'key':api_key})
+            responseCalculate= urllib.request.urlopen(requestCalculate).read()
+            directionCalculate = json.loads(responseCheck.decode('utf-8'))
+            routesCalculate = directionCalculate['routes']
+            legsCalculate = routesCalculate[0]['legs']
+            distanceCalculate = []
+            for index in range(len(legsCalculate)):
+                distanceCalculate.append(legsCalculate[index]['distance']['value'])
+            total_distance_calculate = float(sum(distanceCalculate))/1000
+            updateKilometer = db.base_price
+            admin = updateKilometer.find_one()
+            modifiedKilometer = total_distance_calculate + admin['total_dist']
+            print(modifiedKilometer)
+            updateKilometer.update({},{'$set':{'total_dist':modifiedKilometer}})
+        rides.delete_one({'mailid':displayrides[rideOption]['mailid'],'No_of_persons':0})
         return redirect(url_for('insidelogin.passengercode'))
-
 
 
                 #waypoints.append('Swargate')

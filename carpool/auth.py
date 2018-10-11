@@ -35,7 +35,8 @@ def login():
             if check_password_hash(login_user['password'], password):
                 session['username'] = request.form['email']
                 return redirect(url_for('auth.index'))
-            return 'Invalid username/password combination'
+            return render_template('auth/login.html',check=0)
+        return render_template('auth/login.html',check=0)
 
     return render_template('auth/login.html')
 @bp.route('/home')
@@ -118,8 +119,8 @@ def register():
         elif confpass != password or  not password :
             return('5')
         elif checkduplicate is not None:
-             return('User {} is already registered.'.format(username))
-
+             #return('User {} is already registered.'.format(username))
+             return render_template("auth/signup.html",check=0)
         if error is None:
             user= db.users
             user.insert_one(userinfo)
