@@ -133,6 +133,7 @@ def showRides():
             tempdisplay['name']=getUserInfo['name']
             tempdisplay['end']=document['End']
             tempdisplay['start']=document['Start']
+            tempdisplay['phno']=getUserInfo['phno']
             tempdisplay['model']=getUserInfo['car_details'][0]['model']
             tempdisplay['plate']=getUserInfo['car_details'][0]['plate']
             tempdisplay['cost']= ceil(totalCost)
@@ -144,7 +145,7 @@ def showRides():
     if request.method=='POST':
         rideOption=int(request.form['rides'])
         bookedRides=db.bookedRides
-        bookedRides.insert_one({'mailid':session_name(),'route':displayrides[rideOption]})
+        bookedRides.insert_one({'mailid':session_name(),'route':displayrides[rideOption],'start':originPassenger})
         rides.find_one_and_update({'mailid':displayrides[rideOption]['mailid'],"Time":displayrides[rideOption]['time']},{'$inc':{'No_of_persons':-1}})
         rides.find_one_and_delete({'mailid':displayrides[rideOption]['mailid'],'No_of_persons':0})
         return redirect(url_for('insidelogin.passengercode'))

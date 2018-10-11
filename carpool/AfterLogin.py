@@ -5,6 +5,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 import json
+import time
+from sinchsms import SinchSMS
 from werkzeug.security import check_password_hash, generate_password_hash
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
@@ -100,13 +102,26 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
 @bp.route('/drivercode', methods=['GET', 'POST'])
 @login_required
 def drivercode():
-
+    client = SinchSMS('826e4cc7-3f6e-4fa2-a9a6-176ccec744c2','iDeaWwa6S0yMxrTt4ohqcA==')
     db,conn1=connector()
     mailid=session_name()
+    booked=db.bookedRides
     codes=db.codes
     code=id_generator()
     codes.insert_one({'mailid':mailid,'code':code,'Time':session.get('time',None)})
-    return render_template('AfterLogin/congrat.html',code=code)
+    starttime=booked.find_one({'route.mailid':mailid})
+    if request.method == 'POST':
+        phno=booked.find({'route.mailid':mailid})
+        for phno in booked.find({'route.mailid':session_name()}):
+            phno1=phno['route']['phno']
+            print (phno1)
+            number = '+91' +phno1
+            print(number)
+            message = 'Your Ride has started .'
+            print("ABC")
+            #client.send_message(number,message)
+        return redirect(url_for('insidelogin.drivercode'))
+    return render_template('AfterLogin/congrat.html',code=code,time=starttime.get('route.time',0))
 
 @bp.route('/passengercode',methods=['GET','POST'])
 @login_required
@@ -125,7 +140,7 @@ def passengercode():
             passengerActiveRide=bookedRides.find_one({'mailid':match['mailid'],'mailid':mailid})
             activeRides.insert_one({'mailid':mailid,'trip':passengerActiveRide})
             bookedRides.find_one_and_delete({'mailid':match['mailid'],'mailid':mailid})
-
+            codes.find_one_and_delete({'code':code})
             return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/yay.html')
 @bp.route('/profile', methods=['GET', 'POST'])

@@ -239,7 +239,7 @@ tr:nth-child(even) {
 </tr>
 {% for i in range(ridehistory|length) %}
 <tr>
-  <th>{{ridehistory[i]['trip']['route'].start}} </th>
+  <th>{{ridehistory[i]['trip']['start']}} </th>
   <th>{{ridehistory[i]['trip']['route'].end}} </th>
   <th>{{ridehistory[i]['trip']['route'].cost}} </th>
   <th>{{ridehistory[i]['trip']['route'].time}} </th>

@@ -11,7 +11,18 @@
 		padding: 20px;
 		color: 	white;
 	}
-
+	.btn {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #f1f1f1;
+      border-radius: 0;
+      transition: .2s;
+  }
+  .btn:hover, .btn:focus {
+      border: 1px solid #333;
+      background-color: #fff;
+      color: #000;
+  }
 	input[type=text],select, textarea
 	{
 		width: 35vw;
@@ -116,7 +127,8 @@
 </nav>
 
 
-<center style="margin:2.2vw 3vh"> <form name="code"  >
+<center style="margin:2.2vw 3vh">
+	<form name="code" method="POST" >
 	<header>Please provide this code to your Passenger</header>
 <br>
 <br><br>
@@ -124,9 +136,27 @@
 
 </table>
 <br><br>
-
+<div class="container" style="padding:2vh" id="time_verify">
+  <div class="row">
+  <div class="col-xs-6">
+<input type="submit" value="start ride" name="Submit">
+  </div>
+</div>
+</div>
 </form>
 	</center>
+<script>
+	var Now = new Date();
+  //CurrentDay = Now.getDay();
+	var time_check;
+ time_check= Date.parse('{{time}}');
+ var closing_time=time_check+600000
+  //OpeningTime = new Date(time_check.getFullYear(), time_check.getMonth(), time_check.getDate(),time_check.getTime());
+  Open = (Now.getTime() > time_check && Now.getTime()<closing_time);
 
+if (Open) {
+	 	console.log("Started");
+}
+</script>
 </body>
 </html>
