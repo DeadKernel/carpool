@@ -1,9 +1,14 @@
 import os
-
+from carpool.schedule import automaticDelete
 from flask import (
             Flask,session)
 from carpool.db1 import connector
 from carpool.auth import login_required
+import time
+import atexit
+from apscheduler.schedulers.background import BackgroundScheduler
+def print_date_time():
+    print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
 
 def create_app(test_config=None):
     # create and configure the app
@@ -30,6 +35,10 @@ def create_app(test_config=None):
 
     from . import transaction
     app.register_blueprint(transaction.bp)
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=automaticDelete, trigger="interval", seconds=60)
+    scheduler.start()
+    atexit.register(lambda: scheduler.shutdown())
 
     @app.route('/hello')
     @login_required
@@ -40,5 +49,4 @@ def create_app(test_config=None):
             return("okay")
         except Exception as e:
             return(str(e))
-
     return app
