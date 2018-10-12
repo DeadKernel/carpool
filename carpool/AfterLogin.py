@@ -20,11 +20,16 @@ def admin():
         user=db.users
         count1=user.find().count()
         price=db.bookedRides
-        cost=dict(price.aggregate({
-        '$group': {'_id': '','cost': { '$sum': '$route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}))
+        """price.mapReduce(
+        function(){emit('cost','this.route.cost');},
+        function(key,values){return Array.sum(values)},
+        out:{"cost"}
+        )"""
+        value=db.cost
+        """cost=dict(price.aggregate({'$group': {'_id': '','cost': { '$sum': '$route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}))"""
         admin=db.base_price
         admin_pass=admin.find_one()
-        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1)
+        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=value['cost'],count1=count1)
 @bp.route('/admincontrol',methods=('GET','POST'))
 @login_required
 def admincontrol():
