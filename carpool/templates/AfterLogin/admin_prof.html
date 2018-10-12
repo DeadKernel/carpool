@@ -11,6 +11,10 @@
  <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css"> -->
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
+
+    		<script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+    		<script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+    		ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
 <style>
 
 body {
@@ -44,6 +48,7 @@ header{
 .navbar-nav li a:hover {
    color: #fff !important;
 }
+html,body,#myChart,#myChart2,#myChart3{height: 100%;width: 100%;}
 .navbar-nav li.active a {
    color: #fff !important;
    background-color: #29292c !important;
@@ -91,16 +96,6 @@ strong { font-weight: bold; }
 table { border-collapse: collapse; border-spacing: 0; }
 img { border: 0; max-width: 80%; }
 
-
-.sc-gauge  { width:200px; height:200px; margin:200px auto; }
-.sc-background { position:relative; height:100px; margin-bottom:10px; background-color:#fff; border-radius:150px 150px 0 0; overflow:hidden; text-align:center; }
-.sc-mask { position:absolute; top:20px; right:20px; left:20px; height:80px; background-color:#555888; border-radius:150px 150px 0 0 }
-.sc-percentage { position:absolute; top:100px; left:-200%; width:400%; height:100%; margin-left:100px; background-color:#00aeef; }
-.sc-percentage { transform:rotate(158deg); transform-origin:top center; }
-.sc-min { float:left; }
-.sc-max { float:right; }
-.sc-value { position:absolute; top:50%; left:0; width:100%;  font-size:36px; font-weight:400 color:solid black;}
-
 /** typography **/
 h1 {
  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -137,6 +132,7 @@ h1 {
  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
 }
+
 .navbar {
      font-family: Montserrat, sans-serif;
      margin-bottom: 0;
@@ -203,6 +199,7 @@ th, td {
 .sidebar #leftside-navigation ul li a:hover {
  color: #1abc9c;
 }
+
 #myChart{height: 100%;width: 100%;}
    </style>
 
@@ -242,42 +239,19 @@ th, td {
 
     </li>
     <li class="sub-menu">
-      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.')}}'"><i class="fa fa-table"></i><span>Deleete a User</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.admincontrol')}}'"><i class="fa fa-table"></i><span>Deleete a User</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
-    </lis
+    </li>
       </div>
 </div>
-<center><h1>Total Distance Travelled(in KM's)</h1></center>
-<div class="sc-gauge">
-    <div class="sc-background">
-      <div class="sc-percentage"></div>
-      <div class="sc-mask"></div>
-      <span class="sc-value">{{admin.total_dist}}</span>
-    </div>
-    <span class="sc-min">0</span>
-    <span class="sc-max">100</span>
-</div>
+<center><h1>Total Distance Travelled(in KM's)</h1>
+<div id='myChart'> </div>
 <center><h1>Total Users</h1></center>
-<div class="sc-gauge">
-    <div class="sc-background">
-      <div class="sc-percentage"></div>
-      <div class="sc-mask"></div>
-      <span class="sc-value">{{count1}}</span>
-    </div>
-    <span class="sc-min">0</span>
-    <span class="sc-max">100</span>
-</div>
+<div id='myChart2'> </div>
 <center><h1>Total Cash Overflow</h1></center>
-<div class="sc-gauge">
-    <div class="sc-background">
-      <div class="sc-percentage"></div>
-      <div class="sc-mask"></div>
-      <span class="sc-value">{{cost.totalcost}}</span>
-    </div>
-    <span class="sc-min">0</span>
-    <span class="sc-max">100</span>
-</div>
+<div id='myChart3'> </div></center>
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
+
 <script type="text/javascript">
 window.onload = function () {
 	var chart = new CanvasJS.Chart("chartContainer",
@@ -304,6 +278,61 @@ window.onload = function () {
 	});
 	chart.render();
 }
+</script>
+<script>
+
+
+    var myConfig1 = {
+  "type":"gauge",
+  "scale-r":{
+    "aperture":200,     //Specify your scale range.
+    "values":"0:500:20" //Provide min/max/step scale values.
+  },
+  "series":[
+    {"values":['{{admin.total_dist}}']}
+  ]
+
+    };
+    var myConfig2 = {
+  "type":"gauge",
+  "scale-r":{
+    "aperture":200,     //Specify your scale range.
+    "values":"0:500:20" //Provide min/max/step scale values.
+  },
+  "series":[
+    {"values":['{{cost}}']}
+  ]
+    };
+    var myConfig3 = {
+    "type":"gauge",
+    "scale-r":{
+    "aperture":200,     //Specify your scale range.
+    "values":"0:500:20" //Provide min/max/step scale values.
+    },
+    "series":[
+    {"values":['{{count1}}']}
+    ]
+    };
+
+    zingchart.render({
+    	id : 'myChart',
+    	data : myConfig1,
+    	height : "75%",
+    	width: "75%"
+    });
+    zingchart.render({
+    	id : 'myChart2',
+    	data : myConfig3,
+    	height : "75%",
+    	width: "75%"
+    });
+    zingchart.render({
+    	id : 'myChart3',
+    	data : myConfig2,
+    	height : "75%",
+    	width: "75%"
+    });
+
 
 </script>
 </body>
