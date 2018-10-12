@@ -150,7 +150,7 @@ def drivercode():
             print("ABC")
             client.send_message('+918237822234',message)
         return redirect(url_for('insidelogin.profile'))
-    return render_template('AfterLogin/congrat.html',code=code,time=starttime['time'])
+    return render_template('AfterLogin/congrat.html',code=code,time=starttime['Time'])
 
 @bp.route('/passengercode',methods=['GET','POST'])
 @login_required
