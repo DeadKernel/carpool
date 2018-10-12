@@ -3,7 +3,8 @@ import datetime
 
 def automaticDelete():
     db,conn1 = connector()
-    currentTime = datetime.datetime.now().strftime("%m/%d/%Y %I:%M %p")
+    currentTime = datetime.datetime.now()-datetime.timedelta(minutes=11)
+    currentTime=currentTime.strftime("%m/%d/%Y %I:%M %p")
     print("Deleting Rides Which are getting active")
     print(currentTime)
     availableRides = db.offerride
