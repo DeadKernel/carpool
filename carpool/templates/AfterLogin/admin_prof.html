@@ -245,7 +245,7 @@ th, td {
       </div>
 </div>
 <center><h1>Total Distance Travelled(in KM's)</h1>
-<div id='myChart'> </div>
+<div id='myChart1'> </div>
 <center><h1>Total Users</h1></center>
 <div id='myChart2'> </div>
 <center><h1>Total Cash Overflow</h1></center>
@@ -286,10 +286,10 @@ window.onload = function () {
   "type":"gauge",
   "scale-r":{
     "aperture":200,     //Specify your scale range.
-    "values":"0:200:20" //Provide min/max/step scale values.
+    "values":"0:100:10" //Provide min/max/step scale values.
   },
   "series":[
-    {"values":['{{admin.total_dist}}']}
+    {"values":[parseInt('{{admin.total_dist}}',10)]}
   ]
 
     };
@@ -297,42 +297,41 @@ window.onload = function () {
   "type":"gauge",
   "scale-r":{
     "aperture":200,     //Specify your scale range.
-    "values":"0:50:5" //Provide min/max/step scale values.
+    "values":"0:20:1" //Provide min/max/step scale values.
   },
   "series":[
-    {"values":['{{cost}}']}
+    {"values":[parseInt('{{count1}}',10)]}
   ]
     };
     var myConfig3 = {
     "type":"gauge",
     "scale-r":{
     "aperture":200,     //Specify your scale range.
-    "values":"0:20:1" //Provide min/max/step scale values.
+    "values":"0:50:5" //Provide min/max/step scale values.
     },
     "series":[
-    {"values":['{{count1}}']}
+    {"values":[parseInt('{{cost}}',10)]}
     ]
     };
 
     zingchart.render({
-    	id : 'myChart',
+    	id : 'myChart1',
     	data : myConfig1,
     	height : "75%",
     	width: "75%"
     });
     zingchart.render({
     	id : 'myChart2',
-    	data : myConfig3,
+    	data : myConfig2,
     	height : "75%",
     	width: "75%"
     });
     zingchart.render({
     	id : 'myChart3',
-    	data : myConfig2,
+    	data : myConfig3,
     	height : "75%",
     	width: "75%"
     });
-
 
 </script>
 </body>
