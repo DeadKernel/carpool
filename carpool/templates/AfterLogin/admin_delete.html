@@ -1,142 +1,263 @@
 <!DOCTYPE html>
-
-<html>
+<html >
 
 <head>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <!-- <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.css"> -->
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.43/css/bootstrap-datetimepicker.min.css">
 <style>
-	header{
-		background-color: #333;
-		text-align: center;
-		padding: 20px;
-		color: 	white;
-	}
 
-	input[type=text],select, textarea
-	{
-		width: 35vw;
-		padding: 12px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	}
-	input[type=password],select, textarea
-	{
-	width: 35vw;
-	padding: 12px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	}
-	input[type=submit] {
-		background-color: #333;
-		color: white;
-		padding: 1vw 8vw;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-	}
-	input[type=reset] {
-		background-color: #333;
-		color: white;
-		padding: 1vw 8vw;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-	}
+body {
+ color: #ffffff;
+ background: #ffffff;
+ font-family: 'Open Sans', sans-serif;
+ padding: 0;
+ margin: 0;
+ text-rendering: optimizeLegibility;
+ -webkit-font-smoothing: antialiased;
+}
+header{
+ background-color: #0D4F8B;
+ text-align: center;
+ padding: 20px;
+ color: 	white;
+}
+.navbar {
+   font-family: Montserrat, sans-serif;
 
-	.bg
-	{
-		height:100%;
-		background-position:center;
-		background-repeat:no-repeat;
-		background-size:cover;
-	}
-	form
-	{
-		margin-top:20vh;
+   margin-bottom:0;
+   background-color: #2d2d30;
+   border: 0;
+   font-size: 11px !important;
+   letter-spacing: 4px;
+   opacity: 0.9;
+}
+.navbar li a, .navbar .navbar-brand {
+   color: #d5d5d5 !important;
+}
+.navbar-nav li a:hover {
+   color: #fff !important;
+}
+.navbar-nav li.active a {
+   color: #fff !important;
+   background-color: #29292c !important;
+}
+.navbar-default .navbar-toggle {
+   border-color: transparent;
+}
+.sidebar-toggle {
+ margin-left: -240px;
+}
+.sidebar {
+ width: 240px;
+ height: 100%;
+ background: #2d2d30;
+ position: fixed;
+ -webkit-transition: all 0.3s ease-in-out;
+ -moz-transition: all 0.3s ease-in-out;
+ -o-transition: all 0.3s ease-in-out;
+ -ms-transition: all 0.3s ease-in-out;
+ transition: all 0.3s ease-in-out;
+ z-index: 100;
+}
+.sidebar #leftside-navigation ul,
+.sidebar #leftside-navigation ul ul {
+ margin: -4px 0 0;
+ padding: 0;
+}
 
- 		height:60vh;
-		width: 630px;
-		padding: 30px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-		background-color:white;
- 		opacity:0.8;
-	}
-	.fontAwesome{
-		font-family: FontAwesome;
-	}
-	  .navbar {
-      font-family: Montserrat, sans-serif;
-      margin-bottom: 0;
-      background-color: #2d2d30;
-      border: 0;
-      font-size: 11px !important;
-      letter-spacing: 4px;
-      opacity: 0.9;
-  }
-  .navbar li a, .navbar .navbar-brand {
-      color: #d5d5d5 !important;
-  }
-  .navbar-nav li a:hover {
-      color: #fff !important;
-  }
-  .navbar-nav li.active a {
-      color: #fff !important;
-      background-color: #29292c !important;
-  }
-  .navbar-default .navbar-toggle {
-      border-color: transparent;
-  }
-</style>
 
-<title>Login</title>
+
+input, textarea {
+ -webkit-font-smoothing: antialiased;
+ -webkit-text-size-adjust: 100%;
+ -ms-text-size-adjust: 100%;
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ box-sizing: border-box;
+ outline: none;
+}
+
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+strong { font-weight: bold; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+img { border: 0; max-width: 80%; }
+
+
+.sc-gauge  { width:200px; height:200px; margin:200px auto; }
+.sc-background { position:relative; height:100px; margin-bottom:10px; background-color:#fff; border-radius:150px 150px 0 0; overflow:hidden; text-align:center; }
+.sc-mask { position:absolute; top:20px; right:20px; left:20px; height:80px; background-color:#555888; border-radius:150px 150px 0 0 }
+.sc-percentage { position:absolute; top:100px; left:-200%; width:400%; height:100%; margin-left:100px; background-color:#00aeef; }
+.sc-percentage { transform:rotate(158deg); transform-origin:top center; }
+.sc-min { float:left; }
+.sc-max { float:right; }
+.sc-value { position:absolute; top:50%; left:0; width:100%;  font-size:36px; font-weight:400 color:solid black;}
+
+/** typography **/
+h1 {
+ font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+ font-size: 2.5em;
+ line-height: 1.5em;
+ letter-spacing: -0.05em;
+ margin-bottom: 20px;
+ padding: .1em 0;
+ color: #444;
+ position: relative;
+ text-align: center;
+}
+
+
+/** page structure **/
+#w {
+ display: block;
+ width: 700px;
+ margin: 0 auto;
+ padding-top: 80px;
+ padding-bottom: 45px;
+}
+#userphoto {
+ display: block;
+ float: right;
+ margin-left: 10px;
+ margin-bottom: 8px;
+}
+#userphoto img {
+ display: block;
+ padding: 2px;
+ background: #fff;
+ -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+ -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+ box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+}
+.navbar {
+     font-family: Montserrat, sans-serif;
+     margin-bottom: 0;
+     background-color: #2d2d30;
+
+     border: 0;
+     font-size: 11px !important;
+     letter-spacing: 4px;
+     opacity: 0.9;
+}
+ .navbar li a, .navbar .navbar-brand {
+     color: #d5d5d5 !important;
+}
+.navbar-nav li a:hover {
+     color: #fff !important;
+}
+ .navbar-nav li.active a {
+     color: #fff !important;
+     background-color: #29292c !important;
+ }
+ .navbar-default .navbar-toggle {
+     border-color: transparent;
+ }
+
+
+br { line-height: 25px; }
+
+table {
+   float:center;
+   border-collapse: collapse;
+
+}
+body {  font-family:sans-serif; color:black; text-align:center }
+th, td {
+ color:black;
+ border-bottom: 1px solid #f0f0f0;
+   padding: 5px;
+   text-align: left;
+   font-size: 20px;
+}
+.heading{
+ font-weight: bold;
+}
+
+.sidebar #leftside-navigation ul li.active > a {
+ color: #1abc9c;
+}
+.sidebar #leftside-navigation ul li.active ul {
+ display: block;
+}
+.sidebar #leftside-navigation ul li a {
+ color: #aeb2b7;
+ text-decoration: none;
+ display: block;
+ padding: 18px 0 18px 25px;
+ font-size: 12px;
+ outline: 0;
+ -webkit-transition: all 200ms ease-in;
+ -moz-transition: all 200ms ease-in;
+ -o-transition: all 200ms ease-in;
+ -ms-transition: all 200ms ease-in;
+ transition: all 200ms ease-in;
+}
+.sidebar #leftside-navigation ul li a:hover {
+ color: #1abc9c;
+}
+#myChart{height: 100%;width: 100%;}
+   </style>
+
+ <script src="https://cdn.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+ <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+ <script src= "https://cdn.zingchart.com/zingchart.min.js"></script>
+ <script> zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+ ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9","ee6b7db5b51705a13dc2339db3edaf6d"];</script>
 </head>
-<body class="bg" data-spy="scroll" data-target=".navbar" data-offset="50" onload="return checker()">
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" >
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="{{url_for('auth.auth')}}">Carpooler's Galore</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+<body  data-spy="scroll" data-target=".navbar" data-offset="50">
+
+ <nav class="navbar navbar-default navbar-fixed-top">
+   <div class="container-fluid">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="{{url_for('auth.auth')}}">Carpooler's Galore</a>
+     </div>
+     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-				<li><a href="{{url_for('auth.auth')}}">HOME</a></li>
-				<li><a href="{{url_for('auth.auth')}}#band">ABOUT</a></li>
-				<li><a href="{{url_for('auth.contact')}}">CONTACT</a></li>
-				<li><a href="{{ url_for('insidelogin.profile') }}">PROFILE</a></li>
-				<li><a href="{{ url_for('auth.logout') }}">LOG-OUT</a></li>
-    </div>
-  </div>
-</nav>
+         <li><a href="{{url_for('auth.logout')}}">LOG-OUT</a></li>
+     </ul>
+     </div>
+   </div>
+ </nav>
+<br><br>
+<div class="sidebar">
+<div id="leftside-navigation" class="nano">
+  <ul class="nano-content">
 
+    <li class="sub-menu">
+      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.admin')}}'"><i class="fa fa-cogs"></i><span>Statistics</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
+    </li>
+    <li class="sub-menu">
+      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.')}}'"><i class="fa fa-table"></i><span>Deleete a User</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+
+    </lis
+      </div>
+</div>
 <center style="margin:2.2vw 3vh"> <form name="code"  method="POST"  >
-	<header>Please Enter the code provided by your driver</header>
+	<header>Please Enter the name of the person you want to delete</header>
 <br>
 <br><br>
 <table id="code" style= style="font-size:1.5vw">
-<tr> <td> <input type="text"  name="code1" placeholder=" Code"><br><br></td></tr>
+<tr> <td> <input type="text"  name="username" placeholder=" username"><br><br></td></tr>
 
 </table>
 <br><br>
 <input type="submit" value="Submit" name="Submit" >
 
 </form>
-	</center>
-<script>
- function checker()
- {
-	 var code={{match}}
-	 if(code==0)
-	 {
-		 window.alert("Invalid Code");
-	 }
- }
-</script>
 </body>
 </html>
