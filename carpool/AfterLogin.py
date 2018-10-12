@@ -165,7 +165,7 @@ def passengercode():
         else:
             bookedRides=db.bookedRides
             passengerActiveRide=bookedRides.find_one({'mailid':match['mailid'],'mailid':mailid})
-            activeRides.insert_one({passengerActiveRide})
+            activeRides.insert_one({'trip':passengerActiveRide})
             bookedRides.find_one_and_delete({'mailid':match['mailid'],'mailid':mailid})
             codes.find_one_and_delete({'code':code})
             return redirect(url_for('insidelogin.profile'))
@@ -209,7 +209,7 @@ def ridehistory():
     db,conn1=connector()
     activeRides=db.activeRides
     rideHistory=[]
-    for document in activeRides.find({'mailid':session_name()}):
+    for document in activeRides.find({'trip.mailid':session_name()}):
         rideHistory.append(document)
     print (rideHistory)
     return render_template('AfterLogin/history.html',ridehistory=rideHistory)
