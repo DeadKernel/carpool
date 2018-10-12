@@ -20,7 +20,19 @@ def admin():
         user=db.users
         count1=user.find().count()
         price=db.bookedRides
-        cost=price.aggregate([{'$project':{"totalcost":{'$sum':'price.route.cost'}}}])
+        cost=price.aggregate({
+    '$group': {
+        '_id': '',
+        'cost': { '$sum': '$route.cost' }
+    }
+ }, {
+    '$project': {
+        '_id': 0,
+        'cost': '$cost'
+    }
+})
+    for cost in :
+
         admin=db.base_price
         admin_pass=admin.find_one()
         return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1)
@@ -134,9 +146,10 @@ def drivercode():
     mailid=session_name()
     booked=db.bookedRides
     codes=db.codes
+    rides=db.offerride
     code=id_generator()
     codes.insert_one({'mailid':mailid,'code':code,'Time':session.get('time',None)})
-    starttime=booked.find_one({'route.mailid':mailid})
+    starttime=rides.find_one({'mailid':mailid})
     if request.method == 'POST':
         phno=booked.find({'route.mailid':mailid})
         for phno in booked.find({'route.mailid':session_name()}):
@@ -146,9 +159,9 @@ def drivercode():
             print(number)
             message = 'Your Ride has started .'
             print("ABC")
-            #client.send_message(number,message)
+            client.send_message('+918237822234',message)
         return redirect(url_for('insidelogin.profile'))
-    return render_template('AfterLogin/congrat.html',code=code,time=starttime['route']['time'])
+    return render_template('AfterLogin/congrat.html',code=code,time=starttime['time'])
 
 @bp.route('/passengercode',methods=['GET','POST'])
 @login_required
