@@ -24,6 +24,20 @@ def admin():
         admin=db.base_price
         admin_pass=admin.find_one()
         return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1)
+@bp.route('/admincontrol',methods=('GET','POST'))
+@login_required
+def admincontrol():
+    db,conn1 = connector()
+    user=db.users
+    if request.method=='POST':
+        del_user=request.form['username']
+        user_check=user.find_one({'mailid':del_user})
+        if user_check is None:
+            return render_template('AfterLogin/admin_delete.html',exists=0)
+        user.find_one_and_delete({'mailid':del_user})
+    return render_template('AfterLogin/admin_delete.html')
+    
+
 @bp.route('/offerRide',methods=('GET','POST'))
 @login_required
 def update():
