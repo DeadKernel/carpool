@@ -91,7 +91,7 @@
 
 <title>Login</title>
 </head>
-<body class="bg" data-spy="scroll" data-target=".navbar" data-offset="50">
+<body class="bg" data-spy="scroll" data-target=".navbar" data-offset="50" onload="return checker()">
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -152,5 +152,16 @@ function validateForm()
 	return false;
     }
 }
+function checker()
+{
+  var check12 = {{check | safe}}
+  if (check12==0)
+    {
+
+      window.alert("Invalid username/password combination")
+
+    }
+}
+
 </script>
 </html>

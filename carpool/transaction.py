@@ -45,7 +45,9 @@ def showRides():
         a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
         b = dt.strptime(passroute['Time'], "%m/%d/%Y  %I:%M %p")
         if a>b:
-                continue
+            continue
+        if document['mailid'] == session_name():
+            continue
         originDriver = document['Start']
         destinationDriver =document['End']
         originalWaypoints=document['waypoints']
