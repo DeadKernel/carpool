@@ -151,9 +151,10 @@ def drivercode():
             print (phno1)
             number = '+91' +phno1
             print(number)
-            message = 'Your Ride has started .'
-            print("ABC")
-            client.send_message('+918237822234',message)
+        number = '+918237822234'
+        message = 'Your Ride has started .'
+        print("ABC")
+        client.send_message(number,message)
         return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/congrat.html',code=code,time=starttime['Time'])
 
@@ -172,7 +173,7 @@ def passengercode():
         else:
             bookedRides=db.bookedRides
             passengerActiveRide=bookedRides.find_one({'mailid':match['mailid'],'mailid':mailid})
-            activeRides.insert_one({passengerActiveRide})
+            activeRides.insert_one({'trip':passengerActiveRide})
             bookedRides.find_one_and_delete({'mailid':match['mailid'],'mailid':mailid})
             codes.find_one_and_delete({'code':code})
             return redirect(url_for('insidelogin.profile'))
@@ -216,7 +217,7 @@ def ridehistory():
     db,conn1=connector()
     activeRides=db.activeRides
     rideHistory=[]
-    for document in activeRides.find({'mailid':session_name()}):
+    for document in activeRides.find({'trip.mailid':session_name()}):
         rideHistory.append(document)
     print (rideHistory)
     return render_template('AfterLogin/history.html',ridehistory=rideHistory)
