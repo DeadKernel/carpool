@@ -11,8 +11,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
 from carpool.transaction import *
-
+from bson.code import Code
 bp = Blueprint('insidelogin', __name__, url_prefix='/auth')
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+   return ''.join(random.choice(chars) for _ in range(size))
 @bp.route('/admin',methods=('GET','POST'))
 @login_required
 def admin():
@@ -21,10 +23,18 @@ def admin():
         count1=user.find().count()
         price=db.bookedRides
         cost=list(price.aggregate([{'$group': {'_id': '','cost': { '$sum': '$route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}]))
+        user_rating=db.contact
+        star=[]
+        star.append(user_rating.find().count())
+        star.append(user_rating.find({"star":5}).count())
+        star.append(user_rating.find({"star":4}).count())
+        star.append(user_rating.find({"star":3}).count())
+        star.append(user_rating.find({"star":2}).count())
+        star.append(user_rating.find({"star":1}).count())
         print(cost)
         admin=db.base_price
         admin_pass=admin.find_one()
-        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1)
+        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1,star=star)
 @bp.route('/admincontrol',methods=('GET','POST'))
 @login_required
 def admincontrol():
@@ -58,7 +68,7 @@ def update():
                     "No_of_persons":persons}
             }
             )
-            return redirect(url_for('insidelogin.drivercode'))
+            return redirect(url_for('insidelogin.offerhistory'))
     return render_template('AfterLogin/offerRide.html')
 
 @bp.route('/cardeets',methods=['GET','POST'])
@@ -91,6 +101,7 @@ def takeRoute():
         place1 = request.form['Start']
         place2 = request.form['End']
         date = request.form['Date']
+        code=id_generator()
         routeinfo = {
             "mailid":mailid1,
             "Start":place1,
@@ -99,7 +110,8 @@ def takeRoute():
             "Distance_flex":None,
             "Time_flex":None,
             "No_of_persons":None,
-            "waypoints":""
+            "waypoints":"",
+            "code":code
         }
         db,conn1 = connector()
 
@@ -124,8 +136,7 @@ def takeRoute():
 
     return render_template('AfterLogin/Begin.html')
 
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
-   return ''.join(random.choice(chars) for _ in range(size))
+
 
 @bp.route('/drivercode', methods=['GET', 'POST'])
 @login_required
@@ -134,10 +145,8 @@ def drivercode():
     db,conn1=connector()
     mailid=session_name()
     booked=db.bookedRides
-    codes=db.codes
     rides=db.offerride
-    code=id_generator()
-    codes.insert_one({'mailid':mailid,'code':code,'Time':session.get('time',None)})
+    codeValue=session.get('code',None)
     starttime=rides.find_one({'mailid':mailid})
     if request.method == 'POST':
         phno=booked.find({'route.mailid':mailid})
@@ -151,26 +160,24 @@ def drivercode():
         print("ABC")
         client.send_message(number,message)
         return redirect(url_for('insidelogin.profile'))
-    return render_template('AfterLogin/congrat.html',code=code,time=starttime['Time'])
+    return render_template('AfterLogin/congrat.html',code=codeValue,time=starttime['Time'])
 
 @bp.route('/passengercode',methods=['GET','POST'])
 @login_required
 def passengercode():
     mailid=session_name()
     db,conn1=connector()
-    codes=db.codes
     activeRides=db.activeRides
+    bookedRides=db.bookedRides
     if request.method=='POST':
         code=request.form['code1']
-        match=codes.find_one({'code':code})
+        match=bookedRides.find_one({'route.code':code})
         if match is None:
             return render_template('AfterLogin/yay.html',match=0)
         else:
-            bookedRides=db.bookedRides
             passengerActiveRide=bookedRides.find_one({'mailid':match['mailid'],'mailid':mailid})
             activeRides.insert_one({'trip':passengerActiveRide})
             bookedRides.find_one_and_delete({'mailid':match['mailid'],'mailid':mailid})
-            codes.find_one_and_delete({'code':code})
             return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/yay.html')
 @bp.route('/profile', methods=['GET', 'POST'])
@@ -205,7 +212,22 @@ def mytrips():
     if request.method=='POST':
         return redirect(url_for('insidelogin.passengercode'))
     return render_template('AfterLogin/mytrips.html',passengerRides=passengerRides)
-
+@bp.route('/offerhistory',methods=['GET','POST'])
+@login_required
+def offerhistory():
+    db,conn1=connector()
+    activeRides=db.activeRides
+    rides=db.offerride
+    history1=[]
+    for document in rides.find({'mailid':session_name()}):
+        history1.append(document)
+    if request.method=='POST':
+        print (history1)
+        offerOption=int(request.form['offeroption'])
+        code=history1[offerOption]['code']
+        session['code']=code
+        return redirect(url_for('insidelogin.drivercode'))
+    return render_template('AfterLogin/offerhistory.html',history1=history1)
 @bp.route('/ridehistory',methods=['GET','POST'])
 @login_required
 def ridehistory():
@@ -214,5 +236,7 @@ def ridehistory():
     rideHistory=[]
     for document in activeRides.find({'trip.mailid':session_name()}):
         rideHistory.append(document)
+    for document1 in activeRides.find({'trip.route.mailid':session_name()}):
+        rideHistory.append(document1)
     print (rideHistory)
     return render_template('AfterLogin/history.html',ridehistory=rideHistory)
