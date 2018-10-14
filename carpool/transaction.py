@@ -146,6 +146,8 @@ def showRides():
             displayrides.append(tempdisplay)
             waypointsList.append(addedWaypoints)
 
+    if len(displayrides)==0 :
+        return render_template('AfterLogin/Begin.html', check=12)
     if request.method=='POST':
         rideOption=int(request.form['rides'])
         admin=db.base_price
