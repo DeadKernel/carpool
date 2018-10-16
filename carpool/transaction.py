@@ -148,7 +148,10 @@ def showRides():
             waypointsList.append(addedWaypoints)
 
     if len(displayrides)==0 :
-        return render_template('AfterLogin/Begin.html', check=12)
+        session['norides']=1
+        return redirect(url_for('insidelogin.takeRoute'))
+    else:
+        session['norides']=0
     if request.method=='POST':
         rideOption=int(request.form['rides'])
         admin=db.base_price
