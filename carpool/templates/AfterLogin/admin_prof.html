@@ -34,6 +34,7 @@ body {
  -webkit-font-smoothing: antialiased;
 }
 br { line-height: 25px; }
+center{padding-left: 25px;}
 header{
  background-color: #0D4F8B;
  text-align: center;
@@ -124,31 +125,6 @@ h1 {
  position: relative;
  text-align: center;
 }
-
-
-/** page structure **/
-#w {
- display: block;
- width: 700px;
- margin: 0 auto;
- padding-top: 80px;
- padding-bottom: 45px;
-}
-#userphoto {
- display: block;
- float: right;
- margin-left: 10px;
- margin-bottom: 8px;
-}
-#userphoto img {
- display: block;
- padding: 2px;
- background: #fff;
- -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
- -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.4);
- box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-}
-
 .navbar {
      font-family: Montserrat, sans-serif;
      margin-bottom: 0;
@@ -181,6 +157,7 @@ table {
    border-collapse: collapse;
 
 }
+center{padding-left: 250px;}
 body {  font-family:sans-serif; color:black; text-align:center }
 th, td {
  color:black;
@@ -262,16 +239,16 @@ th, td {
 </div>
 <center><h1>Total Distance Travelled(in KM's)</h1>
 <div id='myChart1'> </div>
-<center><h1>Total Users</h1></center>
+<h1>Total Users</h1>
 <div id='myChart2'> </div>
-<center><h1>Total Cash Overflow</h1></center>
-<div id='myChart3'> </div></center>
+<h1>Total Cash Overflow</h1>
+<div id='myChart3'> </div>
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
 <br><br>
-<center><h1>Average User Rating</h1>
+<h1>Average User Rating</h1>
 <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-md-6 text-center">
+                    <div class="col-xs-12 text-center">
                         <h1 class="rating-num" id="user">
                             </h1>
 
@@ -281,10 +258,10 @@ th, td {
                         </div>
                     </div>
         </div>
-</div></center>
-<center><h1>User Rating Breakdown</h1></center>
+</div>
+<h1>User Rating Breakdown</h1>
 <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/"></a></div>
-
+</center>
 <script>
 var avg1=((5*{{star[1]}})+(4*{{star[2]}})+(3*{{star[3]}})+(2*{{star[4]}})+(1*{{star[5]}}))/({{star[0]}});
 document.getElementById("user").innerHTML=parseFloat(avg1).toFixed(1);
