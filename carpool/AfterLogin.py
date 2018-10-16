@@ -19,7 +19,7 @@ def admin():
         db,conn1 = connector()
         user=db.users
         count1=user.find().count()
-        price=db.bookedRides
+        price=db.activeRides
         cost=list(price.aggregate([{'$group': {'_id': '','cost': { '$sum': '$route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}]))
         print(cost)
         admin=db.base_price
@@ -45,7 +45,6 @@ def update():
     if request.method=='POST':
             mailid1= session_name()
             distance=int(request.form['slider1'])
-
             time=100-distance
             persons=int(request.form['seats'])
 

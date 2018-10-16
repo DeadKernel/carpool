@@ -7,9 +7,6 @@ from carpool.auth import login_required
 import time
 import atexit
 from apscheduler.schedulers.background import BackgroundScheduler
-def print_date_time():
-    print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -38,7 +35,7 @@ def create_app(test_config=None):
     scheduler = BackgroundScheduler()
     scheduler.add_job(func=automaticDelete, trigger="interval", seconds=60)
     scheduler.start()
-    atexit.register(lambda: scheduler.shutdown())
+    atexit.register(lambda:scheduler.shutdown(wait=False))
 
     @app.route('/hello')
     @login_required
