@@ -4,6 +4,8 @@
 <head>
  <meta charset="utf-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -31,6 +33,7 @@ body {
  text-rendering: optimizeLegibility;
  -webkit-font-smoothing: antialiased;
 }
+br { line-height: 25px; }
 header{
  background-color: #0D4F8B;
  text-align: center;
@@ -58,6 +61,14 @@ html,body,#myChart,#myChart2,#myChart3{height: 100%;width: 100%;}
    color: #fff !important;
    background-color: #29292c !important;
 }
+body{ margin-top:20px;}
+.glyphicon { margin-right:5px;}
+.rating .glyphicon {font-size: 22px;}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px;}
+.progress-bar { text-align: left; }
+.rating-desc .col-md-3 {padding-right: 0px;}
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
 .navbar-default .navbar-toggle {
    border-color: transparent;
 }
@@ -234,17 +245,17 @@ th, td {
      </div>
    </div>
  </nav>
-<br><br>
+<br>
 <div class="sidebar">
 <div id="leftside-navigation" class="nano">
   <ul class="nano-content">
 
     <li class="sub-menu">
-      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.admin')}}'"><i class="fa fa-cogs"></i><span>Statistics</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.admin')}}'"><i class="fa fa-table"></i><span>Statistics</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
     </li>
     <li class="sub-menu">
-      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.admincontrol')}}'"><i class="fa fa-table"></i><span>Delete a User</span><i class="arrow fa fa-angle-right pull-right"></i></a>
+      <a href="javascript:void(0);"  onclick="location.href='{{url_for('insidelogin.admincontrol')}}'"><i class="fa fa-cogs"></i><span>Delete a User</span><i class="arrow fa fa-angle-right pull-right"></i></a>
 
     </li>
       </div>
@@ -257,9 +268,49 @@ th, td {
 <div id='myChart3'> </div></center>
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
 <br><br>
+<center><h1>Average User Rating</h1>
+<div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 text-center">
+                        <h1 class="rating-num" id="user">
+                            </h1>
+
+                          <span id=stars></span>
+                          <br>
+                            <span class="glyphicon glyphicon-user"></span>{{star[0]}} total
+                        </div>
+                    </div>
+        </div>
+</div></center>
 <center><h1>User Rating Breakdown</h1></center>
 <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/"></a></div>
 
+<script>
+var avg1=((5*{{star[1]}})+(4*{{star[2]}})+(3*{{star[3]}})+(2*{{star[4]}})+(1*{{star[5]}}))/({{star[0]}});
+document.getElementById("user").innerHTML=parseFloat(avg1).toFixed(1);
+document.getElementById("stars").innerHTML = getStars(avg1);
+
+function getStars(rating) {
+
+  // Round to nearest half
+  rating = Math.round(rating * 2) / 2;
+  let output = [];
+
+  // Append all the filled whole stars
+  for (var i = rating; i >= 1; i--)
+    output.push('<i class="fa fa-star" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+  // If there is a half a star, append it
+  if (i == .5) output.push('<i class="fa fa-star-half-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+  // Fill the empty stars
+  for (let i = (5 - rating); i >= 1; i--)
+    output.push('<i class="fa fa-star-o" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+  return output.join('');
+
+}
+</script>
 <script type="text/javascript">
 var myConfig =         {
             "type":"hbar",
