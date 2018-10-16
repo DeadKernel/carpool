@@ -51,12 +51,14 @@ def contact():
         last_name=request.form['lastname']
         city=request.form['city']
         comment=request.form['subject']
+        star=int(request.form['rating'])
         db,conn1 = connector()
         contact={
         "First Name": first_name,
         "Second Name": last_name,
         "City":city,
-        "Comment":comment
+        "Comment":comment,
+        "star":star
         }
         error=None
         if not first_name:

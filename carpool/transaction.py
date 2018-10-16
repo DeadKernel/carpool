@@ -1,6 +1,7 @@
 import urllib.request
 import json
 import ast
+import string
 from carpool.db1 import connector
 from carpool.auth import login_required,session_name
 from flask import (
@@ -141,7 +142,7 @@ def showRides():
             tempdisplay['plate']=getUserInfo['car_details'][0]['plate']
             tempdisplay['cost']= ceil(totalCost)
             tempdisplay['time']=document['Time']
-
+            tempdisplay['code']=document['code']
             #print(tempdisplay)
             displayrides.append(tempdisplay)
             waypointsList.append(addedWaypoints)
