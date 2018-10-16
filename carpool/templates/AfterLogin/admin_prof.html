@@ -57,7 +57,7 @@ header{
 .navbar-nav li a:hover {
    color: #fff !important;
 }
-html,body,#myChart,#myChart2,#myChart3{height: 100%;width: 100%;}
+html,body,#myChart,#myChart2{height: 100%;width: 100%;}
 .navbar-nav li.active a {
    color: #fff !important;
    background-color: #29292c !important;
@@ -241,8 +241,6 @@ th, td {
 <div id='myChart1'> </div>
 <h1>Total Users</h1>
 <div id='myChart2'> </div>
-<h1>Total Cash Overflow</h1>
-<div id='myChart3'> </div>
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
 <br><br>
 <h1>Average User Rating</h1>
@@ -605,12 +603,7 @@ window.onload = function () {
     	height : "75%",
     	width: "75%"
     });
-    zingchart.render({
-    	id : 'myChart3',
-    	data : myConfig3,
-    	height : "75%",
-    	width: "75%"
-    });
+
 
 </script>
 </body>
