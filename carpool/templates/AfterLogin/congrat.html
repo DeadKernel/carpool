@@ -66,7 +66,7 @@
 	{
 		margin-top:20vh;
 
- 		height:60vh;
+ 		height: auto;
 		width: 630px;
 		padding: 30px;
 		border: 1px solid #ccc;
@@ -134,7 +134,6 @@
 <br><br>
 <p><h1>{{code}}</h1></p>
 
-</table>
 <br><br>
 <div class="container" style="padding:2vh" >
   <div class="row">
@@ -143,8 +142,34 @@
   </div>
 </div>
 </div>
+	<header>Your Passenger's Are</header>
+	<div class="container-fluid">
+	<div class="row">
+	<table>
+	<tr>
+		 <th>Mail Id</th>
+	  <th>Start</th>
+	  <th>End</th>
+	  <th>Cost</th>
+	  <th>Time</th>
+	  <th>Car Number</th>
+	</tr>
+	{% for i in range(passengerRides|length) %}
+	<tr>
+			<th>{{passengerRides[i]['mailid']}}</th>
+	  <th>{{passengerRides[i]['start']}} </th>
+	  <th>{{passengerRides[i]['route'].end}} </th>
+	  <th>{{passengerRides[i]['route'].cost}} </th>
+	  <th>{{passengerRides[i]['route'].time}}</th>
+	  <th>{{passengerRides[i].route.plate}} </th>
+	</tr>
+	{% endfor %}
+	</table>
+	<br><br>
+	</div>
+	</div>
 </form>
-	</center>
+</center>
 <script>
 	var Now = new Date();
   //CurrentDay = Now.getDay();

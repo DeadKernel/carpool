@@ -146,7 +146,10 @@ def drivercode():
     booked=db.bookedRides
     rides=db.offerride
     codeValue=session.get('code',None)
-    starttime=rides.find_one({'mailid':mailid})
+    starttime=rides.find_one({'mailid':mailid,'code':codeValue})
+    passengerRides=[]
+    for document in booked.find({'route.mailid':mailid,'route.time':starttime['Time']}):
+        passengerRides.append(document)
     if request.method == 'POST':
         phno=booked.find({'route.mailid':mailid})
         for phno in booked.find({'route.mailid':session_name()}):
@@ -159,7 +162,7 @@ def drivercode():
         print("ABC")
         client.send_message(number,message)
         return redirect(url_for('insidelogin.profile'))
-    return render_template('AfterLogin/congrat.html',code=codeValue,time=starttime['Time'])
+    return render_template('AfterLogin/congrat.html',code=codeValue,time=starttime['Time'],passengerRides = passengerRides)
 
 @bp.route('/passengercode',methods=['GET','POST'])
 @login_required
