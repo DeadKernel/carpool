@@ -145,7 +145,7 @@ input[type=submit]:hover {
         <input id="autocomplete1"  type="text" name="End" placeholder="End location">
 
          <div class="input-group date" id="datetimepicker">
-               <input type='text' class="form-control" name="Date" placeholder="Date & Time" data-date-format="MM/DD/YYYY hh:mm" >
+               <input type='text' class="form-control" name="Date" placeholder="Date & Time">
                   <span class="input-group-addon" style="background-color:black; border: 1px solid black">
                     <span class="glyphicon glyphicon-calendar" style="color:white"></span>
                    </span>
@@ -153,6 +153,7 @@ input[type=submit]:hover {
              <script type="text/javascript">
               $(function () {
      $('#datetimepicker').datetimepicker({
+         format : 'DD/MM/YYYY hh:mm A',
          minDate:new Date()
       });
  });
