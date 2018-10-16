@@ -55,7 +55,6 @@ def update():
     if request.method=='POST':
             mailid1= session_name()
             distance=int(request.form['slider1'])
-
             time=100-distance
             persons=int(request.form['seats'])
 
