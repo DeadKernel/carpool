@@ -21,8 +21,8 @@ def admin():
         db,conn1 = connector()
         user=db.users
         count1=user.find().count()
-        price=db.bookedRides
-        cost=price.aggregate([{'$group': {'_id': '','cost': { '$sum': '$route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}])
+        price=db.activeRides
+        cost=price.aggregate([{'$group': {'_id': '','cost': { '$sum': '$trip.route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}])
         user_rating=db.contact
         star=[]
         star.append(user_rating.find().count())
