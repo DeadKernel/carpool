@@ -249,10 +249,11 @@ def offerhistory():
 def ridehistory():
     db,conn1=connector()
     activeRides=db.activeRides
-    rideHistory=[]
+    rideHistory1=[]
+    rideHistory2=[]
     for document in activeRides.find({'trip.mailid':session_name()}):
-        rideHistory.append(document)
+        rideHistory1.append(document)
     for document1 in activeRides.find({'trip.route.mailid':session_name()}):
-        rideHistory.append(document1)
-    print (rideHistory)
-    return render_template('AfterLogin/history.html',ridehistory=rideHistory)
+        rideHistory2.append(document1)
+
+    return render_template('AfterLogin/history.html',ridehistory1=rideHistory1,ridehistory2=rideHistory2)

@@ -229,6 +229,7 @@ tr:nth-child(even) {
       </div>
 </div>
 <h1>Past Rides</h1>
+<h1> As a Passenger</h1>
 <div class="row">
  <div class="col-xs-3"></div>
  <div class="col-xs-6">
@@ -240,20 +241,49 @@ tr:nth-child(even) {
   <th>Time</th>
   <th>Car Model</th>
   <th>Car Number</th>
+  <th>E-Mail Id of Driver</th>
 </tr>
-{% for i in range(ridehistory|length) %}
+{% for i in range(ridehistory1|length) %}
 <tr>
-  <th>{{ridehistory[i]['trip']['start']}} </th>
-  <th>{{ridehistory[i]['trip']['route'].end}} </th>
-  <th>{{ridehistory[i]['trip']['route'].cost}} </th>
-  <th>{{ridehistory[i]['trip']['route'].time}} </th>
-  <th>{{ridehistory[i]['trip']['route'].model}} </th>
-  <th>{{ridehistory[i]['trip']['route'].plate}} </th>
+  <th>{{ridehistory1[i]['trip']['start']}} </th>
+  <th>{{ridehistory1[i]['trip']['route'].end}} </th>
+  <th>{{ridehistory1[i]['trip']['route'].cost}} </th>
+  <th>{{ridehistory1[i]['trip']['route'].time}} </th>
+  <th>{{ridehistory1[i]['trip']['route'].model}} </th>
+  <th>{{ridehistory1[i]['trip']['route'].plate}} </th>
+  <th>{{ridehistory1[i]['trip']['route'].mailid}}</th>
 </tr>
 {% endfor %}
 </table>
+</div></div>
 <br><br>
-</div>
+<h1>As a Driver</h1>
+<div class="row">
+ <div class="col-xs-3"></div>
+ <div class="col-xs-6">
+<table>
+<tr>
+  <th>Start</th>
+  <th>End</th>
+  <th>Cost</th>
+  <th>Time</th>
+  <th>Car Model</th>
+  <th>Car Number</th>
+  <th>E-Mail Id of Passenger</th>
+</tr>
+{% for i in range(ridehistory2|length) %}
+<tr>
+  <th>{{ridehistory2[i]['trip']['start']}} </th>
+  <th>{{ridehistory2[i]['trip']['route'].end}} </th>
+  <th>{{ridehistory2[i]['trip']['route'].cost}} </th>
+  <th>{{ridehistory2[i]['trip']['route'].time}} </th>
+  <th>{{ridehistory2[i]['trip']['route'].model}} </th>
+  <th>{{ridehistory2[i]['trip']['route'].plate}} </th>
+  <th>{{ridehistory2[i]['trip'].mailid}}</th>
+</tr>
+{% endfor %}
+</table>
+</div></div>
  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
 
