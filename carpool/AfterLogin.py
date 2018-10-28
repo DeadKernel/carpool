@@ -116,8 +116,10 @@ def takeRoute():
 
         session['routeinfo']=str(routeinfo)
         if request.form['Ride'] == 'Book Ride':
-            return redirect(url_for('afterbookride.showRides'))
-            print("ComeBack")
+            if session.get('norides',None)==-1:
+                return redirect(url_for('afterbookride.showRides'))
+            else:
+                return render_template('AfterLogin/Begin.html',check=12)
         elif request.form['Ride'] == 'Offer Ride':
             user=db.users
             print("In offer Ride")
@@ -145,6 +147,7 @@ def drivercode():
     mailid=session_name()
     booked=db.bookedRides
     rides=db.offerride
+    activeRides=db.activeRides
     codeValue=session.get('code',None)
     starttime=rides.find_one({'mailid':mailid,'code':codeValue})
     passengerRides=[]
@@ -161,6 +164,7 @@ def drivercode():
         message = 'Your Ride has started .'
         print("ABC")
         client.send_message(number,message)
+        rides.find_one_and_delete({'code':codeValue})
         return redirect(url_for('insidelogin.profile'))
     return render_template('AfterLogin/congrat.html',code=codeValue,time=starttime['Time'],passengerRides = passengerRides)
 
@@ -201,6 +205,7 @@ def profile():
         'Car_Model':model,
         'licence_Number':license
         }
+    session['norides']=-1
     return render_template('AfterLogin/index.html',user=user_details)
 
 @bp.route('/mytrips',methods=['GET','POST'])
