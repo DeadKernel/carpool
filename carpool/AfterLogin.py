@@ -48,7 +48,16 @@ def admincontrol():
         user.find_one_and_delete({'mailid':del_user})
     return render_template('AfterLogin/admin_delete.html')
 
-
+@bp.route('/adminprice',methods=('GET','POST'))
+@login_required
+def adminprice():
+    db,conn1 = connector()
+    admin=db.base_price
+    if request.method=='POST':
+        base_price1=request.form['quantity']
+        per_km1=request.form['quantity1']
+        admin.update({},{'$set':{"base_price":base_price1,"per_km":per_km1}})
+    return render_template('AfterLogin/admin_cost.html')
 @bp.route('/offerRide',methods=('GET','POST'))
 @login_required
 def update():
