@@ -43,8 +43,10 @@ def showRides():
         totalCost+= (total_distance_cost-1)*5
 
     for document in rides.find({"End":destinationPassenger}):
-        a = dt.strptime(document['Time'],"%m/%d/%Y %I:%M %p")
-        b = dt.strptime(passroute['Time'], "%m/%d/%Y  %I:%M %p")
+        a = dt.strptime(document['Time'],"%m/%d/%Y %H:%M")
+        b = dt.strptime(passroute['Time'], "%m/%d/%Y  %H:%M")
+        print(a)
+        print(b)
         if a>b:
             continue
         if document['mailid'] == session_name():
