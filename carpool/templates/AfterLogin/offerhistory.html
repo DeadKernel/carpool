@@ -257,7 +257,6 @@ input[type=submit]:hover {
  <div class="col-xs-6">
 <table>
 <tr>
-  <th>Passenger Email</th>
   <th>Start</th>
   <th>End</th>
   <th>Time</th>
@@ -265,7 +264,6 @@ input[type=submit]:hover {
 </tr>
 {% for i in range(history1|length) %}
 <tr>
-  <th>{{history1[i]['mailid']}} </th>
   <th>{{history1[i]['Start']}} </th>
   <th>{{history1[i]['End']}} </th>
   <th>{{history1[i]['Time']}} </th>

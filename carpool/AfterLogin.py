@@ -62,12 +62,15 @@ def adminprice():
 @login_required
 def update():
     if request.method=='POST':
+            db,conn1 = connector()
             mailid1= session_name()
+            admin=db.base_price
+            admin.update({},{'$inc':{'No_of_offers':1}})
             distance=int(request.form['slider1'])
             time=100-distance
             persons=int(request.form['seats'])
 
-            db,conn1 = connector()
+
             ride= db.offerride
             ride.update_many(
             {"mailid": mailid1,"Time":session.get('time',None)},
@@ -90,8 +93,6 @@ def cardeets():
 
                 db,conn1 = connector()
                 user= db.users
-                admin=db.base_price
-                admin.update({},{'$inc':{'No_of_offers':1}})
                 user.update_many(
                 {"mailid": mailid1},
                 {'$set': { "car_details.0.plate":plate,
