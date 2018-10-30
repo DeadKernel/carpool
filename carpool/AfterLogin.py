@@ -22,7 +22,7 @@ def admin():
         user=db.users
         count1=user.find().count()
         price=db.activeRides
-        cost=price.aggregate([{'$group': {'_id': '','cost': { '$sum': '$trip.route.cost' }}},{'$project':{'_id': 0,'cost': '$cost'}}])
+        cost=list(price.aggregate([{'$group':{'_id':1,'cost': {'$sum': '$trip.route.cost' }}}]))
         user_rating=db.contact
         star=[]
         star.append(user_rating.find().count())
@@ -31,10 +31,10 @@ def admin():
         star.append(user_rating.find({"star":3}).count())
         star.append(user_rating.find({"star":2}).count())
         star.append(user_rating.find({"star":1}).count())
-        print(cost)
+        print(cost[0])
         admin=db.base_price
         admin_pass=admin.find_one()
-        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost,count1=count1,star=star)
+        return render_template('AfterLogin/admin_prof.html',admin=admin_pass,cost=cost[0],count1=count1,star=star)
 @bp.route('/admincontrol',methods=('GET','POST'))
 @login_required
 def admincontrol():

@@ -245,6 +245,8 @@ th, td {
 <div id='myChart1'> </div>
 <h1>Total Users</h1>
 <div id='myChart2'> </div>
+<h1>Total Cash Flow</h1>
+<div id='myChart3'> </div>
 <div id="chartContainer" style="height: 500px; width: 100%;"></div>
 <br><br>
 <h1>Average User Rating</h1>
@@ -587,11 +589,11 @@ window.onload = function () {
     var myConfig3 = {
     "type":"gauge",
     "scale-r":{
-    "aperture":200,     //Specify your scale range.
+    "aperture":100,     //Specify your scale range.
     "values":"0:50:5" //Provide min/max/step scale values.
     },
     "series":[
-    {"values":[parseInt('{{cost}}',10)]}
+    {"values":[parseInt('{{cost['cost']}}',10)]}
     ]
     };
 
@@ -604,6 +606,12 @@ window.onload = function () {
     zingchart.render({
     	id : 'myChart2',
     	data : myConfig2,
+    	height : "75%",
+    	width: "75%"
+    });
+    zingchart.render({
+    	id : 'myChart3',
+    	data : myConfig3,
     	height : "75%",
     	width: "75%"
     });
